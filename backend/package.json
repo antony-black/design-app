@@ -1,0 +1,24 @@
+{
+  "name": "backend",
+  "version": "0.0.0",
+  "scripts": {
+    "start": "node ./dist/index.js",
+    "dev": "rimraf .dist && ts-node-dev --rs ./src/index.ts",
+    "build": "tsc --build ./tsconfig.json",
+    "prettify": "prettier --log-level warn --cache --write \"src/**/*.{js,ts,jsx,tsx,json,css,scss,md,yml,yaml}\" \"*.{js,ts,json,md,yml,yaml}\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "prettier": "^3.5.3",
+    "rimraf": "^6.0.1",
+    "ts-node": "^10.9.1",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.1.6"
+  },
+  "dependencies": {
+    "@types/node": "^22.15.17"
+  }
+}
