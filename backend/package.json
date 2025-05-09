@@ -7,6 +7,7 @@
     "dev": "rimraf .dist && ts-node-dev --rs ./src/index.ts",
     "build": "tsc --build ./tsconfig.json",
     "types": "tsc --noEmit --project ./tsconfig.json",
+    "lint": "eslint --cache --cache-location ./node_modules/.cache/.eslintcache --ext .ts .",
     "prettify": "prettier --log-level warn --cache --write \"src/**/*.{js,ts,jsx,tsx,json,css,scss,md,yml,yaml}\" \"*.{js,ts,json,md,yml,yaml}\""
   },
   "keywords": [],

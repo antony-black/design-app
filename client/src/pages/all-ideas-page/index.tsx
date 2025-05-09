@@ -11,7 +11,7 @@ const AllIdeasPage = () => {
   if (isLoading || isFetching) {
     return <span>Loading...</span>;
   }
-  if (!data.ideas) {
+  if (!data?.ideas) {
     return <span>There are no ideas.</span>;
   }
   if (error) {
