@@ -1,5 +1,5 @@
 {
-  "name": "desing-app",
+  "name": "@design-app/client",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -8,9 +8,15 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
+    "types": "tsc --noEmit --project ./tsconfig.json && tsc --noEmit --project ./tsconfig.node.json",
     "prettify": "prettier --log-level warn --cache --write \"src/**/*.{js,ts,jsx,tsx,json,css,scss,md,yml,yaml}\" \"*.{js,ts,json,md,yml,yaml}\""
   },
   "dependencies": {
+    "@design-app/backend": "workspace:*",
+    "@tanstack/react-query": "^4.36.1",
+    "@trpc/client": "^10.37.1",
+    "@trpc/react-query": "^10.37.1",
+    "@trpc/server": "^10.37.1",
     "autoprefixer": "^10.4.21",
     "react": "^19.1.0",
     "react-dom": "^19.1.0"

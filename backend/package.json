@@ -1,10 +1,12 @@
 {
-  "name": "backend",
+  "name": "@design-app/backend",
+  "private": true,
   "version": "0.0.0",
   "scripts": {
     "start": "node ./dist/index.js",
     "dev": "rimraf .dist && ts-node-dev --rs ./src/index.ts",
     "build": "tsc --build ./tsconfig.json",
+    "types": "tsc --noEmit --project ./tsconfig.json",
     "prettify": "prettier --log-level warn --cache --write \"src/**/*.{js,ts,jsx,tsx,json,css,scss,md,yml,yaml}\" \"*.{js,ts,json,md,yml,yaml}\""
   },
   "keywords": [],
@@ -12,6 +14,9 @@
   "license": "ISC",
   "description": "",
   "devDependencies": {
+    "@types/cors": "^2.8.18",
+    "@types/express": "^5.0.1",
+    "@types/node": "^22.15.17",
     "prettier": "^3.5.3",
     "rimraf": "^6.0.1",
     "ts-node": "^10.9.1",
@@ -19,6 +24,8 @@
     "typescript": "^5.1.6"
   },
   "dependencies": {
-    "@types/node": "^22.15.17"
+    "@trpc/server": "^10.37.1",
+    "cors": "^2.8.5",
+    "express": "^5.1.0"
   }
 }
