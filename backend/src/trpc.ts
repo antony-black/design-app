@@ -12,7 +12,6 @@ const trpc = initTRPC.create();
 
 export const trpcRouter = trpc.router({
   getAllIdeas: trpc.procedure.query(() => {
-
     return { ideas };
   }),
 });

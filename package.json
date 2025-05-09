@@ -1,5 +1,19 @@
 {
   "name": "design-app",
   "private": true,
-  "version": "0.0.0"
+  "version": "0.0.0",
+  "scripts": {
+    "b": "pnpm --filter @design-app/backend",
+    "c": "pnpm --filter @design-app/client",
+    "dev": "pnpm -r --parallel dev",
+    "types": "pnpm -r --parallel types",
+    "prettify": "pnpm -r --parallel prettify"
+  },
+  "devDependencies": {
+    "prettier": "^3.5.3",
+    "rimraf": "^6.0.1",
+    "ts-node": "^10.9.1",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.1.6"
+  }
 }
