@@ -1,4 +1,6 @@
+import { Link } from 'react-router-dom';
 import { trpc } from '../../lib/trpc';
+import { getSingleIdeaRoute } from '@/lib/routes';
 
 type TIdea = {
   nick: string;
@@ -23,7 +25,9 @@ const AllIdeasPage = () => {
       <h1>Ideas Page</h1>
       {data.ideas.map((idea: TIdea) => (
         <div key={idea.nick}>
-          <h2>{idea.name}</h2>
+          <Link to={getSingleIdeaRoute({ nick: idea.nick })}>
+            <h2>{idea.name}</h2>
+          </Link>
           <p>{idea.description}</p>
         </div>
       ))}
