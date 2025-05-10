@@ -15,7 +15,7 @@ const AllIdeasPage = () => {
     return <span>There are no ideas.</span>;
   }
   if (error) {
-    return <span>{error.message}</span>
+    return <span>{error.message}</span>;
   }
 
   return (

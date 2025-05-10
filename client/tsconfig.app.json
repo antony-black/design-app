@@ -28,5 +28,9 @@
     "noUncheckedSideEffectImports": true,
     "types": ["vitest/globals"]
   },
-  "include": ["src"]
+  "include": [
+    "src/**/*", // Include everything in 'src'
+    "client/src/**/*", // Include 'client/src' if the client folder contains TypeScript files
+    "vite-env.d.ts" // Ensure this is included if needed
+  ]
 }
