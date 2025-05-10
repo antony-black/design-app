@@ -27,6 +27,7 @@ rules:
   '@typescript-eslint/triple-slash-reference': off
   '@typescript-eslint/ban-types': off
   '@typescript-eslint/consistent-type-assertions': off
+  '@typescript-eslint/no-non-null-assertion': off
   jsx-a11y/anchor-is-valid: off
   curly:
     - error

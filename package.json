@@ -8,7 +8,8 @@
     "dev": "pnpm -r --parallel dev",
     "types": "pnpm -r --parallel types",
     "lint": "pnpm -r --parallel lint",
-    "prettify": "pnpm -r --parallel prettify"
+    "prettify": "pnpm -r --parallel prettify",
+    "prepare": "husky install"
   },
   "devDependencies": {
     "concurrently": "^9.1.2",
