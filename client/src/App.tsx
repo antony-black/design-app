@@ -1,4 +1,5 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { Layout } from './components/layout';
 import { getAllIdeasRoute, getSingleIdeaRoute, ideaRouteParams } from './lib/routes';
 import { TrpcProvider } from './lib/trpc';
 import AllIdeasPage from './pages/all-ideas-page';
@@ -9,8 +10,10 @@ export const App = () => {
     <TrpcProvider>
       <BrowserRouter>
         <Routes>
-          <Route path={getAllIdeasRoute()} element={<AllIdeasPage />} />
-          <Route path={getSingleIdeaRoute(ideaRouteParams)} element={<IdeaPage />} />
+          <Route element={<Layout />}>
+            <Route path={getAllIdeasRoute()} element={<AllIdeasPage />} />
+            <Route path={getSingleIdeaRoute(ideaRouteParams)} element={<IdeaPage />} />
+          </Route>
         </Routes>
       </BrowserRouter>
     </TrpcProvider>
