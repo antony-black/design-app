@@ -15,7 +15,7 @@ export const Layout = () => {
           </li>
           <li className={styles.item}>
             <Link className={styles.link} to={routes.addNewIdea()}>
-              Add Ideas
+              Add Idea
             </Link>
           </li>
         </ul>
