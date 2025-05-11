@@ -1,12 +1,8 @@
 import { Link } from 'react-router-dom';
 import { trpc } from '../../lib/trpc';
-import { getSingleIdeaRoute } from '@/lib/routes';
-
-type TIdea = {
-  nick: string;
-  name: string;
-  description: string;
-};
+import styles from './index.module.scss';
+import { Segment } from '@/components/segment';
+import * as routes from '@/lib/routes';
 
 const AllIdeasPage = () => {
   const { data, isLoading, isFetching, error } = trpc.getAllIdeas.useQuery();
@@ -21,17 +17,23 @@ const AllIdeasPage = () => {
   }
 
   return (
-    <div>
-      <h1>Ideas Page</h1>
-      {data.ideas.map((idea: TIdea) => (
-        <div key={idea.nick}>
-          <Link to={getSingleIdeaRoute({ nick: idea.nick })}>
-            <h2>{idea.name}</h2>
-          </Link>
-          <p>{idea.description}</p>
-        </div>
-      ))}
-    </div>
+    <Segment title="All Ideas">
+      <div className={styles.ideas}>
+        {data.ideas.map((idea) => (
+          <div className={styles.idea} key={idea.nick}>
+            <Segment
+              size={2}
+              title={
+                <Link className={styles.ideaLink} to={routes.getSingleIdeaRoute({ nick: idea.nick })}>
+                  {idea.name}
+                </Link>
+              }
+              description={idea.description}
+            />
+          </div>
+        ))}
+      </div>
+    </Segment>
   );
 };
 

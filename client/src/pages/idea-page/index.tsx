@@ -1,4 +1,6 @@
 import { useParams } from 'react-router-dom';
+import styles from './index.module.scss';
+import { Segment } from '@/components/segment';
 import type { TideaRouteParams } from '@/lib/routes';
 import { trpc } from '@/lib/trpc';
 
@@ -21,11 +23,9 @@ const IdeaPage: React.FC = () => {
   }
 
   return (
-    <div>
-      <h1>{data.idea.name}</h1>
-      <p>{data.idea.description}</p>
-      <div dangerouslySetInnerHTML={{ __html: data.idea.text }} />
-    </div>
+    <Segment title={data.idea.name} description={data.idea.description}>
+      <div className={styles.text} dangerouslySetInnerHTML={{ __html: data.idea.text }} />
+    </Segment>
   );
 };
 

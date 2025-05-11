@@ -1,17 +1,25 @@
 import { Link, Outlet } from 'react-router-dom';
-import { getAllIdeasRoute } from '@/lib/routes';
+import styles from './index.module.scss';
+import * as routes from '@/lib/routes';
 
 export const Layout = () => {
   return (
-    <div>
-      <h1>
-        <b>Design App</b>
-      </h1>
-      <ul>
-        <li>
-          <Link to={getAllIdeasRoute()}>All Ideas</Link>
-        </li>
-      </ul>
+    <div className={styles.layout}>
+      <div className={styles.navigation}>
+        <div className={styles.logo}>IdeaNick</div>
+        <ul className={styles.menu}>
+          <li className={styles.item}>
+            <Link className={styles.link} to={routes.getAllIdeasRoute()}>
+              All Ideas
+            </Link>
+          </li>
+          <li className={styles.item}>
+            <Link className={styles.link} to={routes.addNewIdea()}>
+              Add Ideas
+            </Link>
+          </li>
+        </ul>
+      </div>
       <hr />
       <div>
         <Outlet />

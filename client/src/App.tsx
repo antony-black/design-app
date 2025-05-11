@@ -1,9 +1,10 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Layout } from './components/layout';
-import { getAllIdeasRoute, getSingleIdeaRoute, ideaRouteParams } from './lib/routes';
 import { TrpcProvider } from './lib/trpc';
+import AddIdeaPage from './pages/add-idea-page/inedx';
 import AllIdeasPage from './pages/all-ideas-page';
 import IdeaPage from './pages/idea-page';
+import * as routes from '@/lib/routes';
 
 export const App = () => {
   return (
@@ -11,8 +12,9 @@ export const App = () => {
       <BrowserRouter>
         <Routes>
           <Route element={<Layout />}>
-            <Route path={getAllIdeasRoute()} element={<AllIdeasPage />} />
-            <Route path={getSingleIdeaRoute(ideaRouteParams)} element={<IdeaPage />} />
+            <Route path={routes.getAllIdeasRoute()} element={<AllIdeasPage />} />
+            <Route path={routes.getSingleIdeaRoute(routes.ideaRouteParams)} element={<IdeaPage />} />
+            <Route path={routes.addNewIdea()} element={<AddIdeaPage />} />
           </Route>
         </Routes>
       </BrowserRouter>
