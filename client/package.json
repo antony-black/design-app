@@ -9,7 +9,6 @@
     "preview": "vite preview",
     "types": "tsc --noEmit --project ./tsconfig.json && tsc --noEmit --project ./tsconfig.node.json",
     "lint": "eslint --cache --cache-location ./node_modules/.cache/.eslintcache --ext .ts,.tsx .",
-    "stylelint": "stylelint --cache --cache-location ./node_modules/.cache/.stylelintcache 'src/**/*.scss'",
     "stylecheck": "sass --update -q ./src:./node_modules/.cache/.stylecheckcache",
     "prettify": "prettier --log-level warn --cache --write \"src/**/*.{js,ts,jsx,tsx,json,css,scss,md,yml,yaml}\" \"*.{js,ts,json,md,yml,yaml}\""
   },
