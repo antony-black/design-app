@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom';
-import { trpc } from '../../lib/trpc';
 import styles from './index.module.scss';
 import { Segment } from '@/components/segment';
 import * as routes from '@/lib/routes';
+import { trpc } from '@/lib/trpc';
 
 const AllIdeasPage = () => {
   const { data, isLoading, isFetching, error } = trpc.getAllIdeas.useQuery();

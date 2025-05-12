@@ -2,10 +2,13 @@ import { useFormik } from 'formik';
 import { CustomInput } from '@/components/custom-input';
 import { CustomTextArea } from '@/components/custom-textarea';
 import { Segment } from '@/components/segment';
+import { trpc } from '@/lib/trpc';
 import type { TIdea } from '@/types/input-types';
 import { validate } from '@/utils/validate-util';
 
 const AddIdeaPage: React.FC = () => {
+  const addIdea = trpc.addIdea.useMutation();
+
   const formik = useFormik<TIdea>({
     initialValues: {
       name: '',
@@ -14,8 +17,8 @@ const AddIdeaPage: React.FC = () => {
       text: '',
     },
     validate,
-    onSubmit: (values) => {
-      console.info('Submitted', values);
+    onSubmit: async (values) => {
+      await addIdea.mutateAsync(values);
     },
   });
   console.log('formik:', formik);

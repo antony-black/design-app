@@ -1,9 +1,10 @@
 import { trpc } from '../trpc';
-import { getIdeasTrpcRoute, getSingleIdeaTrpcRoute } from './routes';
+import { addIdeaTrpcRoute, getIdeasTrpcRoute, getSingleIdeaTrpcRoute } from './routes';
 
 export const trpcRouter = trpc.router({
   getAllIdeas: getIdeasTrpcRoute,
   getSingleIdea: getSingleIdeaTrpcRoute,
+  addIdea: addIdeaTrpcRoute,
 });
 
 export type TtrpcRouter = typeof trpcRouter;
