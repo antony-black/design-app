@@ -19,20 +19,25 @@ const AddIdeaPage: React.FC = () => {
     },
   });
   console.log('formik:', formik);
+  const { handleSubmit, isValid, isSubmitting } = formik;
   return (
     <Segment title="New Idea">
       <form
         onSubmit={(e) => {
           e.preventDefault();
-          formik.handleSubmit();
+          if (isValid) {
+            handleSubmit();
+          }
         }}
       >
         <CustomInput name="name" label="Name" formik={formik} />
         <CustomInput name="nick" label="Nick" formik={formik} />
         <CustomInput name="description" label="Description" formik={formik} />
         <CustomTextArea name="text" label="Text" formik={formik} />
-        {!formik.isValid && <div style={{ color: 'red' }}>Some fields are invalid</div>}
-        <button type="submit">Create Idea</button>
+        {!isValid && !!isSubmitting && <div style={{ color: 'red' }}>Some fields are invalid</div>}
+        <button type="submit" disabled={!isValid || isSubmitting}>
+          {isSubmitting ? 'Submitting...' : 'Create Idea'}
+        </button>
       </form>
     </Segment>
   );
