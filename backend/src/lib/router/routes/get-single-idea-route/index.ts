@@ -1,6 +1,6 @@
 import { z } from 'zod';
-import { trpc } from '../../../lib/trpc';
-import { ideas } from '../../mock-data';
+import { ideas } from '../../../mock-data';
+import { trpc } from '../../../trpc';
 
 export const getSingleIdeaTrpcRoute = trpc.procedure
   .input(

@@ -1,6 +1,5 @@
-import { trpc } from '../../lib/trpc';
-import { getIdeasTrpcRoute } from './get-ideas-trpc-route';
-import { getSingleIdeaTrpcRoute } from './get-single-idea-route';
+import { trpc } from '../trpc';
+import { getIdeasTrpcRoute, getSingleIdeaTrpcRoute } from './routes';
 
 export const trpcRouter = trpc.router({
   getAllIdeas: getIdeasTrpcRoute,
