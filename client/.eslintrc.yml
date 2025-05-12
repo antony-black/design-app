@@ -8,3 +8,13 @@ overrides:
       - vite.config.ts
     parserOptions:
       project: ['./tsconfig.json', './tsconfig.node.json']
+rules:
+  '@typescript-eslint/no-restricted-imports':
+    - error
+    - patterns:
+        - group:
+            - '@design-app/backend/**'
+            - '!@design-app/backend/**/'
+            - '!@design-app/backend/**/input'
+          allowTypeImports: true
+          message: 'Only types and input schemas are allowed to be imported from backend workspace'
