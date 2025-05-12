@@ -6,7 +6,7 @@ export const Layout = () => {
   return (
     <div className={styles.layout}>
       <div className={styles.navigation}>
-        <div className={styles.logo}>IdeaNick</div>
+        <h1 className={styles.logo}>IdeaNick</h1>
         <ul className={styles.menu}>
           <li className={styles.item}>
             <Link className={styles.link} to={routes.getAllIdeasRoute()}>
@@ -20,8 +20,7 @@ export const Layout = () => {
           </li>
         </ul>
       </div>
-      <hr />
-      <div>
+      <div className={styles.content}>
         <Outlet />
       </div>
     </div>

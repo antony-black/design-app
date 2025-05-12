@@ -1,6 +1,9 @@
 import type { TCustomInput } from '@/types/input-types';
 
-export const CustomInput: React.FC<TCustomInput> = ({ name, label, value, setValue }) => {
+export const CustomInput: React.FC<TCustomInput> = ({ name, label, formik }) => {
+  const value = formik.values[name];
+  const error = formik.errors[name];
+
   return (
     <div style={{ marginBottom: 10 }}>
       <label htmlFor={name}>{label}</label>
@@ -8,12 +11,13 @@ export const CustomInput: React.FC<TCustomInput> = ({ name, label, value, setVal
       <input
         type="text"
         onChange={(e) => {
-          setValue({ ...value, [name]: e.target.value });
+          void formik.setFieldValue(name, e.target.value);
         }}
-        value={value[name]}
+        value={value}
         name={name}
         id={name}
       />
+      {error && <div style={{ color: 'red' }}>{error}</div>}
     </div>
   );
 };

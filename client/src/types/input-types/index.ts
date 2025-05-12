@@ -1,3 +1,5 @@
+import type { FormikProps } from 'formik';
+
 export type TIdea = {
   name: string;
   nick: string;
@@ -8,6 +10,5 @@ export type TIdea = {
 export type TCustomInput = {
   name: keyof TIdea;
   label: string;
-  value: TIdea;
-  setValue: React.Dispatch<React.SetStateAction<TIdea>>;
+  formik: FormikProps<TIdea>;
 };
