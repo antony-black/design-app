@@ -12,4 +12,5 @@ export type TCustomInput = {
   label: string;
   formik: FormikProps<TIdea>;
   disabled: boolean;
+  maxWidth?: number;
 };

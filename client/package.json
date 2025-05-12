@@ -19,6 +19,7 @@
     "@trpc/react-query": "^10.37.1",
     "@trpc/server": "^10.37.1",
     "autoprefixer": "^10.4.21",
+    "classnames": "^2.5.1",
     "formik": "^2.4.6",
     "formik-validator-zod": "^2.2.0",
     "include-media": "^2.0.0",

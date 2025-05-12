@@ -1,16 +1,23 @@
+import cn from 'classnames';
+import styles from './index.module.scss';
 import type { TCustomInput } from '@/types/input-types';
 
-export const CustomInput: React.FC<TCustomInput> = ({ name, label, formik, disabled }) => {
-  const { values, errors, touched, setFieldValue, setFieldTouched } = formik;
+export const CustomInput: React.FC<TCustomInput> = ({ name, label, formik, disabled, maxWidth }) => {
+  const { values, errors, touched, setFieldValue, setFieldTouched, isSubmitting } = formik;
   const value = values[name];
   const error = errors[name];
-  const isTouched = touched[name];
+  const invalid = !!touched && !!error;
 
   return (
-    <div style={{ marginBottom: 10 }}>
+    <div className={cn({ [styles.field]: true, [styles.disabled]: isSubmitting })}>
       <label htmlFor={name}>{label}</label>
       <br />
       <input
+        className={cn({
+          [styles.input]: true,
+          [styles.invalid]: invalid,
+        })}
+        style={{ maxWidth }}
         type="text"
         onChange={(e) => {
           void setFieldValue(name, e.target.value);
@@ -23,7 +30,7 @@ export const CustomInput: React.FC<TCustomInput> = ({ name, label, formik, disab
         id={name}
         disabled={disabled}
       />
-      {!!isTouched && !!error && <div style={{ color: 'red' }}>{error}</div>}
+      {invalid && <div className={styles.error}>{error}</div>}
     </div>
   );
 };
