@@ -10,6 +10,7 @@ import { validate } from '@/utils/validate-util';
 const AddIdeaPage: React.FC = () => {
   const addIdea = trpc.addIdea.useMutation();
   const [showSuccess, setShowSuccess] = useState<boolean>(false);
+  const [error, setError] = useState<string>('');
 
   const formik = useFormik<TIdea>({
     initialValues: {
@@ -25,12 +26,14 @@ const AddIdeaPage: React.FC = () => {
         resetForm();
         setShowSuccess(true);
       } catch (error) {
-        console.error('error:', error);
+        if (error instanceof Error) {
+          setError(error.message);
+        }
       }
     },
   });
   console.log('formik:', formik);
-
+  // TODO: add to utils
   useEffect(() => {
     if (showSuccess) {
       const timeout = setTimeout(() => {
@@ -40,7 +43,16 @@ const AddIdeaPage: React.FC = () => {
         clearTimeout(timeout);
       };
     }
-  }, [showSuccess]);
+
+    if (error.length > 0) {
+      const timeout = setTimeout(() => {
+        setError('');
+      }, 3000);
+      return () => {
+        clearTimeout(timeout);
+      };
+    }
+  }, [showSuccess, error]);
   const { handleSubmit, isValid, isSubmitting } = formik;
   return (
     <Segment title="New Idea">
@@ -54,6 +66,7 @@ const AddIdeaPage: React.FC = () => {
       >
         <CustomInput name="name" label="Name" formik={formik} disabled={isSubmitting} />
         <CustomInput name="nick" label="Nick" formik={formik} disabled={isSubmitting} />
+        {error && <div style={{ color: 'red' }}>{error}</div>}
         <CustomInput name="description" label="Description" formik={formik} disabled={isSubmitting} />
         <CustomTextArea name="text" label="Text" formik={formik} disabled={isSubmitting} />
         {!isValid && !!isSubmitting && <div style={{ color: 'red' }}>Some fields are invalid</div>}
