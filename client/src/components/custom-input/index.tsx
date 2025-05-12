@@ -1,6 +1,6 @@
 import type { TCustomInput } from '@/types/input-types';
 
-export const CustomInput: React.FC<TCustomInput> = ({ name, label, formik }) => {
+export const CustomInput: React.FC<TCustomInput> = ({ name, label, formik, disabled }) => {
   const { values, errors, touched, setFieldValue, setFieldTouched } = formik;
   const value = values[name];
   const error = errors[name];
@@ -21,6 +21,7 @@ export const CustomInput: React.FC<TCustomInput> = ({ name, label, formik }) => 
         value={value}
         name={name}
         id={name}
+        disabled={disabled}
       />
       {!!isTouched && !!error && <div style={{ color: 'red' }}>{error}</div>}
     </div>

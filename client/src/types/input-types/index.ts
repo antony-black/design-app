@@ -11,4 +11,5 @@ export type TCustomInput = {
   name: keyof TIdea;
   label: string;
   formik: FormikProps<TIdea>;
+  disabled: boolean;
 };
