@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { CustomButton } from '@/components/custom-button';
 import { CustomInput } from '@/components/custom-input';
 import { CustomTextArea } from '@/components/custom-textarea';
+import { FormItems } from '@/components/form-items';
 import { Notification } from '@/components/notification';
 import { Segment } from '@/components/segment';
 import { trpc } from '@/lib/trpc';
@@ -66,15 +67,17 @@ const AddIdeaPage: React.FC = () => {
           }
         }}
       >
-        <CustomInput name="name" label="Name" formik={formik} disabled={isSubmitting} />
-        <CustomInput name="nick" label="Nick" formik={formik} disabled={isSubmitting} />
-        {error && <Notification color={'red'}>{error}</Notification>}
+        <FormItems>
+          <CustomInput name="name" label="Name" formik={formik} disabled={isSubmitting} />
+          <CustomInput name="nick" label="Nick" formik={formik} disabled={isSubmitting} />
+          {error && <Notification color={'red'}>{error}</Notification>}
 
-        <CustomInput name="description" label="Description" formik={formik} disabled={isSubmitting} maxWidth={500} />
-        <CustomTextArea name="text" label="Text" formik={formik} disabled={isSubmitting} />
+          <CustomInput name="description" label="Description" formik={formik} disabled={isSubmitting} maxWidth={500} />
+          <CustomTextArea name="text" label="Text" formik={formik} disabled={isSubmitting} />
 
-        {showSuccess && <Notification color={'green'}>The idea is successfully added!</Notification>}
-        <CustomButton isLoading={isSubmitting}>Create Idea</CustomButton>
+          {showSuccess && <Notification color={'green'}>The idea is successfully added!</Notification>}
+          <CustomButton isLoading={isSubmitting}>Create Idea</CustomButton>
+        </FormItems>
       </form>
     </Segment>
   );
