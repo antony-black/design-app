@@ -2,6 +2,7 @@ import { useFormik } from 'formik';
 import { useEffect, useState } from 'react';
 import { CustomInput } from '@/components/custom-input';
 import { CustomTextArea } from '@/components/custom-textarea';
+import { Notification } from '@/components/notification';
 import { Segment } from '@/components/segment';
 import { trpc } from '@/lib/trpc';
 import type { TIdea } from '@/types/input-types';
@@ -66,11 +67,12 @@ const AddIdeaPage: React.FC = () => {
       >
         <CustomInput name="name" label="Name" formik={formik} disabled={isSubmitting} />
         <CustomInput name="nick" label="Nick" formik={formik} disabled={isSubmitting} />
-        {error && <div style={{ color: 'red' }}>{error}</div>}
-        <CustomInput name="description" label="Description" formik={formik} disabled={isSubmitting} />
+        {error && <Notification color={'red'}>{error}</Notification>}
+
+        <CustomInput name="description" label="Description" formik={formik} disabled={isSubmitting} maxWidth={500} />
         <CustomTextArea name="text" label="Text" formik={formik} disabled={isSubmitting} />
-        {!isValid && !!isSubmitting && <div style={{ color: 'red' }}>Some fields are invalid</div>}
-        {showSuccess && <div style={{ color: 'lightgreen' }}>The idea is successfully added!</div>}
+
+        {showSuccess && <Notification color={'green'}>The idea is successfully added!</Notification>}
         <button type="submit" disabled={isSubmitting}>
           {isSubmitting ? 'Submitting...' : 'Create Idea'}
         </button>

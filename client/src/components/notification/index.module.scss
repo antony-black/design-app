@@ -1,0 +1,17 @@
+@import '../../styles/_vars';
+@import '../../styles/_mixins';
+
+.notification {
+  padding: 10px;
+  border-radius: $borderRadiusSmall;
+
+  &.red {
+    background-color: #ffffff;
+    color: #631717;
+  }
+
+  &.green {
+    background-color: #d7ffd7;
+    color: #2b6d2b;
+  }
+}
