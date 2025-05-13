@@ -1,16 +1,24 @@
+import cn from 'classnames';
+import styles from './index.module.scss';
 import type { TCustomInput } from '@/types/input-types';
 
 export const CustomTextArea: React.FC<TCustomInput> = ({ name, label, formik, disabled }) => {
-  const { values, errors, touched, setFieldValue, setFieldTouched } = formik;
+  const { values, errors, touched, setFieldValue, setFieldTouched, isSubmitting } = formik;
   const value = values[name];
   const error = errors[name];
-  const isTouched = touched[name];
+  const invalid = !!touched[name] && !!error;
 
   return (
-    <div style={{ marginBottom: 10 }}>
-      <label htmlFor={name}>{label}</label>
+    <div className={cn({ [styles.field]: true, [styles.disabled]: isSubmitting })}>
+      <label className={styles.label} htmlFor={name}>
+        {label}
+      </label>
       <br />
       <textarea
+        className={cn({
+          [styles.input]: true,
+          [styles.invalid]: invalid,
+        })}
         onChange={(e) => {
           void setFieldValue(name, e.target.value);
         }}
@@ -22,7 +30,7 @@ export const CustomTextArea: React.FC<TCustomInput> = ({ name, label, formik, di
         id={name}
         disabled={disabled}
       />
-      {!!isTouched && !!error && <div style={{ color: 'red' }}>{error}</div>}
+      {invalid && <div className={styles.error}>{error}</div>}
     </div>
   );
 };

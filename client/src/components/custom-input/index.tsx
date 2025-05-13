@@ -6,11 +6,13 @@ export const CustomInput: React.FC<TCustomInput> = ({ name, label, formik, disab
   const { values, errors, touched, setFieldValue, setFieldTouched, isSubmitting } = formik;
   const value = values[name];
   const error = errors[name];
-  const invalid = !!touched && !!error;
+  const invalid = !!touched[name] && !!error;
 
   return (
     <div className={cn({ [styles.field]: true, [styles.disabled]: isSubmitting })}>
-      <label htmlFor={name}>{label}</label>
+      <label className={styles.label} htmlFor={name}>
+        {label}
+      </label>
       <br />
       <input
         className={cn({
