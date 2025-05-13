@@ -1,5 +1,4 @@
 import { z } from 'zod';
-import { ideas } from '../../../mock-data';
 import { trpc } from '../../../trpc';
 
 export const getSingleIdeaTrpcRoute = trpc.procedure
@@ -8,8 +7,8 @@ export const getSingleIdeaTrpcRoute = trpc.procedure
       nick: z.string(),
     }),
   )
-  .query(({ input }) => {
-    const idea = ideas.find((idea) => idea.nick === input.nick);
+  .query(async ({ ctx: appContext, input }) => {
+    const idea = await appContext.prisma.idea.findUnique({ where: { nick: input.nick } });
 
-    return { idea: idea || null };
+    return { idea };
   });
