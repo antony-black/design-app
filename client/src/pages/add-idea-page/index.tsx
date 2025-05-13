@@ -1,5 +1,6 @@
 import { useFormik } from 'formik';
 import { useEffect, useState } from 'react';
+import { CustomButton } from '@/components/custom-button';
 import { CustomInput } from '@/components/custom-input';
 import { CustomTextArea } from '@/components/custom-textarea';
 import { Notification } from '@/components/notification';
@@ -73,9 +74,7 @@ const AddIdeaPage: React.FC = () => {
         <CustomTextArea name="text" label="Text" formik={formik} disabled={isSubmitting} />
 
         {showSuccess && <Notification color={'green'}>The idea is successfully added!</Notification>}
-        <button type="submit" disabled={isSubmitting}>
-          {isSubmitting ? 'Submitting...' : 'Create Idea'}
-        </button>
+        <CustomButton isLoading={isSubmitting}>Create Idea</CustomButton>
       </form>
     </Segment>
   );
