@@ -1,25 +1,27 @@
-import * as trpcExpress from '@trpc/server/adapters/express';
 import cors from 'cors';
 import express from 'express';
+import { type AppContext, createAppContext } from './lib/app-context';
 import { trpcRouter } from './lib/router/trpc-router';
-// import { applyTrpcToExpressApp } from './lib/trpc';
+import { applyTrpcToExpressApp } from './lib/trpc';
 
-const expressApp = express();
-expressApp.use(cors());
-expressApp.get('/ping', (req, res) => {
-  res.send('pong');
-});
+void (async () => {
+  let appContext: AppContext | null = null;
+  try {
+    appContext = createAppContext();
 
-// applyTrpcToExpressApp(expressApp, trpcRouter);
+    const expressApp = express();
+    expressApp.use(cors());
+    expressApp.get('/ping', (req, res) => {
+      res.send('pong');
+    });
 
-expressApp.use(
-  '/trpc',
-  trpcExpress.createExpressMiddleware({
-    router: trpcRouter,
-    createContext: () => ({}),
-  }),
-);
+    applyTrpcToExpressApp(expressApp, appContext, trpcRouter);
 
-expressApp.listen(3000, () => {
-  console.info('Listening  at http://localhost:3000');
-});
+    expressApp.listen(3000, () => {
+      console.info('Listening at http://localhost:3000');
+    });
+  } catch (error) {
+    console.error(error);
+    await appContext?.stop();
+  }
+})();
