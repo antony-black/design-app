@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import styles from './index.module.scss';
-import { Segment } from '@/components/segment';
+import { Segment } from '@/components';
 import * as routes from '@/lib/routes';
 import { trpc } from '@/lib/trpc';
 

@@ -1,11 +1,6 @@
 import { useFormik } from 'formik';
 import { useEffect, useState } from 'react';
-import { CustomButton } from '@/components/custom-button';
-import { CustomInput } from '@/components/custom-input';
-import { CustomTextArea } from '@/components/custom-textarea';
-import { FormItems } from '@/components/form-items';
-import { Notification } from '@/components/notification';
-import { Segment } from '@/components/segment';
+import { CustomButton, CustomInput, CustomTextArea, FormItems, Notification, Segment } from '@/components';
 import { trpc } from '@/lib/trpc';
 import type { TIdea } from '@/types/input-types';
 import { validate } from '@/utils/validate-util';
