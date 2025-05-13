@@ -1,14 +1,15 @@
 import { zValidationScheme } from '../../../../schemas/z-validation-schema';
-import { ideas } from '../../../mock-data';
 import { trpc } from '../../../trpc';
 
-export const addIdeaTrpcRoute = trpc.procedure.input(zValidationScheme).mutation(({ input }) => {
-  const isNickExisted = ideas.find((idea) => idea.nick === input.nick);
-  if (isNickExisted) {
+export const addIdeaTrpcRoute = trpc.procedure.input(zValidationScheme).mutation(async ({ ctx: appContext, input }) => {
+  const hasIdea = await appContext.prisma.idea.findUnique({ where: { nick: input.nick } });
+  if (hasIdea) {
     throw Error('Idea with the same nick has already existed.');
   }
 
-  ideas.unshift(input);
+  const idea = await appContext.prisma.idea.create({
+    data: input,
+  });
 
-  return true;
+  return { idea };
 });
