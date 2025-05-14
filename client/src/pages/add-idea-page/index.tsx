@@ -51,7 +51,9 @@ export const AddIdeaPage: React.FC = () => {
       };
     }
   }, [showSuccess, error]);
+
   const { handleSubmit, isValid, isSubmitting } = formik;
+
   return (
     <Segment title="New Idea">
       <form

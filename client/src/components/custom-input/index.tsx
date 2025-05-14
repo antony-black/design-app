@@ -4,8 +4,8 @@ import styles from './index.module.scss';
 
 export const CustomInput = <T,>({ name, label, formik, disabled, maxWidth, type = 'text' }: TCustomInput<T>) => {
   const { values, errors, touched, setFieldValue, setFieldTouched, isSubmitting } = formik;
-  const value = values[name];
-  const error = errors[name];
+  const value = values[name] as string;
+  const error = errors[name] as string;
   const invalid = !!touched[name] && !!error;
 
   return (
@@ -27,12 +27,12 @@ export const CustomInput = <T,>({ name, label, formik, disabled, maxWidth, type 
         onBlur={() => {
           void setFieldTouched(name);
         }}
-        value={String(value ?? '')}
+        value={value}
         name={name}
         id={name}
         disabled={disabled}
       />
-      {invalid && typeof error === 'string' && <div className={styles.error}>{error}</div>}
+      {invalid && <div className={styles.error}>{error}</div>}
     </div>
   );
 };

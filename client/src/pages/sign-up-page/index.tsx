@@ -3,7 +3,7 @@ import { trpc } from '@/lib/trpc';
 import { zSignUpScheme } from '@design-app/backend/src/schemas/z-sign-up-schema';
 import { useFormik } from 'formik';
 import { withZodSchema } from 'formik-validator-zod';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { z } from 'zod';
 
 type TSignUpPage = {
@@ -49,6 +49,27 @@ export const SignUpPage: React.FC = () => {
       }
     },
   });
+
+  // TODO: add to utils
+  useEffect(() => {
+    if (showSuccess) {
+      const timeout = setTimeout(() => {
+        setShowSuccess(false);
+      }, 3000);
+      return () => {
+        clearTimeout(timeout);
+      };
+    }
+
+    if (error.length > 0) {
+      const timeout = setTimeout(() => {
+        setError('');
+      }, 3000);
+      return () => {
+        clearTimeout(timeout);
+      };
+    }
+  }, [showSuccess, error]);
 
   const { handleSubmit, isValid, submitCount, isSubmitting } = formik;
 

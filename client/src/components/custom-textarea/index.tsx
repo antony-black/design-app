@@ -1,11 +1,11 @@
+import type { TCustomInput } from '@/types/input-types';
 import cn from 'classnames';
 import styles from './index.module.scss';
-import type { TCustomInput } from '@/types/input-types';
 
-export const CustomTextArea: React.FC<TCustomInput> = ({ name, label, formik, disabled }) => {
+export const CustomTextArea = <T,>({ name, label, formik, disabled }: TCustomInput<T>) => {
   const { values, errors, touched, setFieldValue, setFieldTouched, isSubmitting } = formik;
-  const value = values[name];
-  const error = errors[name];
+  const value = values[name] as string;
+  const error = errors[name] as string;
   const invalid = !!touched[name] && !!error;
 
   return (
