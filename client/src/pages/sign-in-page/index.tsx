@@ -1,9 +1,12 @@
 import { CustomButton, CustomInput, FormItems, Notification, Segment } from '@/components';
+import { getAllIdeasRoute } from '@/lib/routes';
 import { trpc } from '@/lib/trpc';
 import { zSignUpScheme } from '@design-app/backend/src/schemas/z-sign-up-schema';
 import { useFormik } from 'formik';
 import { withZodSchema } from 'formik-validator-zod';
+import Cookies from 'js-cookie';
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 type TSignInPage = {
   nick: string;
@@ -11,8 +14,9 @@ type TSignInPage = {
 };
 
 export const SignInPage: React.FC = () => {
-  const [showSuccess, setShowSuccess] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
+  const navigate = useNavigate();
+  const trpcUtils = trpc.useContext();
   const singIn = trpc.signIn.useMutation();
   const formik = useFormik<TSignInPage>({
     initialValues: {
@@ -20,11 +24,12 @@ export const SignInPage: React.FC = () => {
       password: '',
     },
     validate: withZodSchema(zSignUpScheme),
-    onSubmit: async (values, { resetForm }) => {
+    onSubmit: async (values) => {
       try {
-        await singIn.mutateAsync(values);
-        resetForm();
-        setShowSuccess(true);
+        const { token } = await singIn.mutateAsync(values);
+        Cookies.set('token', token, { expires: 99999 });
+        void trpcUtils.invalidate();
+        navigate(getAllIdeasRoute());
       } catch (error) {
         if (error instanceof Error) {
           setError(error.message);
@@ -35,15 +40,6 @@ export const SignInPage: React.FC = () => {
 
   // TODO: add to utils
   useEffect(() => {
-    if (showSuccess) {
-      const timeout = setTimeout(() => {
-        setShowSuccess(false);
-      }, 3000);
-      return () => {
-        clearTimeout(timeout);
-      };
-    }
-
     if (error.length > 0) {
       const timeout = setTimeout(() => {
         setError('');
@@ -52,7 +48,7 @@ export const SignInPage: React.FC = () => {
         clearTimeout(timeout);
       };
     }
-  }, [showSuccess, error]);
+  }, [error]);
 
   const { handleSubmit, isValid, submitCount, isSubmitting } = formik;
 
@@ -64,7 +60,6 @@ export const SignInPage: React.FC = () => {
           <CustomInput label="Password" name="password" type="password" formik={formik} />
           {!isValid && !!submitCount && <Notification color="red">Some fields are invalid.</Notification>}
           {error && <Notification color={'red'}>{error}</Notification>}
-          {showSuccess && <Notification color={'green'}>Successfully sign in!</Notification>}
           <CustomButton isLoading={isSubmitting}>Sign in</CustomButton>
         </FormItems>
       </form>

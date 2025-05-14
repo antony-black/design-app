@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "scripts": {
     "b": "pnpm --filter @design-app/backend",
-    "c": "pnpm --filter @design-app/client",
+    "w": "pnpm --filter @design-app/client",
     "dev": "pnpm -r --parallel dev",
     "types": "pnpm -r --parallel types",
     "lint": "pnpm -r --parallel lint",

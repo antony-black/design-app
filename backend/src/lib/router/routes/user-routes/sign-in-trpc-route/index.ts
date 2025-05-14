@@ -1,18 +1,21 @@
 import { zSignUpScheme } from '../../../../../schemas/z-sign-up-schema';
 import { getPasswordHash } from '../../../../../utils/get-password-hash';
+import { signJWT } from '../../../../../utils/sign-jwt';
 import { trpc } from '../../../../trpc';
 
 export const signInTrpcRoute = trpc.procedure.input(zSignUpScheme).mutation(async ({ ctx: appContext, input }) => {
-  const hasUser = await appContext.prisma.user.findFirst({
+  const user = await appContext.prisma.user.findFirst({
     where: {
       nick: input.nick,
       password: getPasswordHash(input.password),
     },
   });
 
-  if (!hasUser) {
+  if (!user) {
     throw Error('Wrong nick or password');
   }
 
-  return true;
+  const token = signJWT(user.id);
+
+  return { token };
 });
