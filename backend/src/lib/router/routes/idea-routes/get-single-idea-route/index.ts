@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { trpc } from '../../../trpc';
+import { trpc } from '../../../../trpc';
 
 export const getSingleIdeaTrpcRoute = trpc.procedure
   .input(

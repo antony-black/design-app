@@ -1,5 +1,5 @@
-import { zValidationScheme } from '../../../../schemas/z-validation-schema';
-import { trpc } from '../../../trpc';
+import { zValidationScheme } from '../../../../../schemas/z-validation-schema';
+import { trpc } from '../../../../trpc';
 
 export const addIdeaTrpcRoute = trpc.procedure.input(zValidationScheme).mutation(async ({ ctx: appContext, input }) => {
   const hasIdea = await appContext.prisma.idea.findUnique({ where: { nick: input.nick } });
