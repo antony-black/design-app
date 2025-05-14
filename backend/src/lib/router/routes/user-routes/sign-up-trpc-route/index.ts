@@ -1,5 +1,5 @@
-import crypto from 'crypto';
 import { zSignUpScheme } from '../../../../../schemas/z-sign-up-schema';
+import { getPasswordHash } from '../../../../../utils/get-password-hash';
 import { trpc } from '../../../../trpc';
 
 export const signUpTrpcRoute = trpc.procedure.input(zSignUpScheme).mutation(async ({ ctx: appContext, input }) => {
@@ -11,7 +11,7 @@ export const signUpTrpcRoute = trpc.procedure.input(zSignUpScheme).mutation(asyn
   const user = await appContext.prisma.user.create({
     data: {
       nick: input.nick,
-      password: crypto.createHash('sha256').update(input.password).digest('hex'),
+      password: getPasswordHash(input.password),
     },
   });
 
