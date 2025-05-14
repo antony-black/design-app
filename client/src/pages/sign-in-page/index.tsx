@@ -53,7 +53,7 @@ export const SignInPage: React.FC = () => {
   const { handleSubmit, isValid, submitCount, isSubmitting } = formik;
 
   return (
-    <Segment title="Sign Up">
+    <Segment title="Sign In">
       <form onSubmit={handleSubmit}>
         <FormItems>
           <CustomInput label="Nick" name="nick" formik={formik} />
