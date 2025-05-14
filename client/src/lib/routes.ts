@@ -11,3 +11,4 @@ export const getSingleIdeaRoute = ({ nick }: TideaRouteParams) => `/ideas/${nick
 export const addNewIdeaRoute = () => '/ideas/add';
 
 export const signUpRoute = () => '/sign-up';
+export const signInRoute = () => '/sign-in';
