@@ -1,8 +1,8 @@
+import type { TCustomInput } from '@/types/input-types';
 import cn from 'classnames';
 import styles from './index.module.scss';
-import type { TCustomInput } from '@/types/input-types';
 
-export const CustomInput: React.FC<TCustomInput> = ({ name, label, formik, disabled, maxWidth }) => {
+export const CustomInput = <T,>({ name, label, formik, disabled, maxWidth, type = 'text' }: TCustomInput<T>) => {
   const { values, errors, touched, setFieldValue, setFieldTouched, isSubmitting } = formik;
   const value = values[name];
   const error = errors[name];
@@ -20,19 +20,19 @@ export const CustomInput: React.FC<TCustomInput> = ({ name, label, formik, disab
           [styles.invalid]: invalid,
         })}
         style={{ maxWidth }}
-        type="text"
+        type={type}
         onChange={(e) => {
           void setFieldValue(name, e.target.value);
         }}
         onBlur={() => {
           void setFieldTouched(name);
         }}
-        value={value}
+        value={String(value ?? '')}
         name={name}
         id={name}
         disabled={disabled}
       />
-      {invalid && <div className={styles.error}>{error}</div>}
+      {invalid && typeof error === 'string' && <div className={styles.error}>{error}</div>}
     </div>
   );
 };

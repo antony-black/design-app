@@ -7,10 +7,11 @@ export type TIdea = {
   text: string;
 };
 
-export type TCustomInput = {
-  name: keyof TIdea;
+export type TCustomInput<T> = {
+  name: Extract<keyof T, string>;
   label: string;
-  formik: FormikProps<TIdea>;
-  disabled: boolean;
+  formik: FormikProps<T>;
+  disabled?: boolean;
   maxWidth?: number;
+  type?: 'text' | 'password';
 };

@@ -8,4 +8,6 @@ export const ideaRouteParams = getRouteParams({ nick: true });
 export type TideaRouteParams = typeof ideaRouteParams;
 export const getSingleIdeaRoute = ({ nick }: TideaRouteParams) => `/ideas/${nick}`;
 
-export const addNewIdea = () => '/ideas/add';
+export const addNewIdeaRoute = () => '/ideas/add';
+
+export const signUpRoute = () => '/sign-up';

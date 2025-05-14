@@ -1,10 +1,8 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { Layout } from './components/layout';
-import { TrpcProvider } from './lib/trpc';
-import AddIdeaPage from './pages/add-idea-page';
-import AllIdeasPage from './pages/all-ideas-page';
-import IdeaPage from './pages/idea-page';
+import { Layout } from '@/components';
 import * as routes from '@/lib/routes';
+import { AddIdeaPage, AllIdeasPage, IdeaPage, SignUpPage } from '@/pages';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { TrpcProvider } from './lib/trpc';
 
 export const App = () => {
   return (
@@ -12,9 +10,10 @@ export const App = () => {
       <BrowserRouter>
         <Routes>
           <Route element={<Layout />}>
+            <Route path={routes.signUpRoute()} element={<SignUpPage />} />
             <Route path={routes.getAllIdeasRoute()} element={<AllIdeasPage />} />
             <Route path={routes.getSingleIdeaRoute(routes.ideaRouteParams)} element={<IdeaPage />} />
-            <Route path={routes.addNewIdea()} element={<AddIdeaPage />} />
+            <Route path={routes.addNewIdeaRoute()} element={<AddIdeaPage />} />
           </Route>
         </Routes>
       </BrowserRouter>

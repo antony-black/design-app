@@ -4,7 +4,7 @@ import { Segment } from '@/components';
 import * as routes from '@/lib/routes';
 import { trpc } from '@/lib/trpc';
 
-const AllIdeasPage = () => {
+export const AllIdeasPage = () => {
   const { data, isLoading, isFetching, error } = trpc.getAllIdeas.useQuery();
   if (isLoading || isFetching) {
     return <span>Loading...</span>;
@@ -36,5 +36,3 @@ const AllIdeasPage = () => {
     </Segment>
   );
 };
-
-export default AllIdeasPage;

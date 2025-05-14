@@ -5,7 +5,7 @@ import { trpc } from '@/lib/trpc';
 import type { TIdea } from '@/types/input-types';
 import { validate } from '@/utils/validate-util';
 
-const AddIdeaPage: React.FC = () => {
+export const AddIdeaPage: React.FC = () => {
   const addIdea = trpc.addIdea.useMutation();
   const [showSuccess, setShowSuccess] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
@@ -77,5 +77,3 @@ const AddIdeaPage: React.FC = () => {
     </Segment>
   );
 };
-
-export default AddIdeaPage;

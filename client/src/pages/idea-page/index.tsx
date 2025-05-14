@@ -5,7 +5,7 @@ import { format } from 'date-fns';
 import { useParams } from 'react-router-dom';
 import styles from './index.module.scss';
 
-const IdeaPage: React.FC = () => {
+export const IdeaPage: React.FC = () => {
   const { nick } = useParams<TideaRouteParams>();
   // TODO: refactor "routes" & remove redundant checks
   if (!nick) {
@@ -32,5 +32,3 @@ const IdeaPage: React.FC = () => {
     </Segment>
   );
 };
-
-export default IdeaPage;
