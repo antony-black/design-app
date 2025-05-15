@@ -9,6 +9,7 @@
     "pmd": "prisma migrate dev",
     "pgc": "npx prisma generate",
     "pf": "npx prisma format",
+    "ps": "npx prisma studio",
     "types": "tsc --noEmit --project ./tsconfig.json",
     "lint": "eslint --cache --cache-location ./node_modules/.cache/.eslintcache --ext .ts .",
     "prettify": "prettier --log-level warn --cache --write \"src/**/*.{js,ts,jsx,tsx,json,css,scss,md,yml,yaml}\" \"*.{js,ts,json,md,yml,yaml}\"",

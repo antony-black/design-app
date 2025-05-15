@@ -40,7 +40,9 @@ rules:
   no-console:
     - warn
     - allow:
-        - log
+        - info
+        - error
+        - warn
   no-restricted-syntax:
     - error
     - selector: '[object.type=MetaProperty][property.name=env]'

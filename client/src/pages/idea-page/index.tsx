@@ -28,6 +28,7 @@ export const IdeaPage: React.FC = () => {
   return (
     <Segment title={data.idea.name} description={data.idea.description}>
       <div className={styles.createdAt}>{createdAt}</div>
+      <div className={styles.author}>Author: {data.idea.author.nick}</div>
       <div className={styles.text} dangerouslySetInnerHTML={{ __html: data.idea.text }} />
     </Segment>
   );

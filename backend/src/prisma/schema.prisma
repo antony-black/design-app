@@ -11,6 +11,7 @@ model User {
   id        String   @id @default(uuid())
   nick      String   @unique
   password  String
+  ideas     Idea[]
   createdAt DateTime @default(now())
 }
 
@@ -20,5 +21,7 @@ model Idea {
   name        String
   description String
   text        String
+  author      User     @relation(fields: [authorId], references: [id])
+  authorId    String
   createdAt   DateTime @default(now())
 }

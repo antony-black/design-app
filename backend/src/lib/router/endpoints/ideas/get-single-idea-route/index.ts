@@ -8,7 +8,17 @@ export const getSingleIdeaTrpcRoute = trpc.procedure
     }),
   )
   .query(async ({ ctx: appContext, input }) => {
-    const idea = await appContext.prisma.idea.findUnique({ where: { nick: input.nick } });
+    const idea = await appContext.prisma.idea.findUnique({
+      where: { nick: input.nick },
+      include: {
+        author: {
+          select: {
+            id: true,
+            nick: true,
+          },
+        },
+      },
+    });
 
     return { idea };
   });

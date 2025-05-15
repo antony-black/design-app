@@ -1,7 +1,6 @@
 import { trpc } from '../trpc';
-import { addIdeaTrpcRoute, getIdeasTrpcRoute, getSingleIdeaTrpcRoute } from './routes/idea-routes';
-import { signInTrpcRoute, signUpTrpcRoute } from './routes/user-routes';
-import { getMeTrpcRoute } from './routes/user-routes/get-me-trpc-route';
+import { addIdeaTrpcRoute, getIdeasTrpcRoute, getSingleIdeaTrpcRoute } from './endpoints/ideas';
+import { signInTrpcRoute, signUpTrpcRoute, getMeTrpcRoute } from './endpoints/users';
 
 export const trpcRouter = trpc.router({
   getAllIdeas: getIdeasTrpcRoute,
