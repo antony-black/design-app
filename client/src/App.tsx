@@ -3,6 +3,7 @@ import * as routes from '@/lib/routes';
 import { AddIdeaPage, AllIdeasPage, IdeaPage, SignInPage, SignOutPage, SignUpPage } from '@/pages';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { TrpcProvider } from './lib/trpc';
+import { EditIdeaPage } from './pages/edit-idea-page';
 
 export const App = () => {
   return (
@@ -16,6 +17,7 @@ export const App = () => {
             <Route path={routes.getAllIdeasRoute()} element={<AllIdeasPage />} />
             <Route path={routes.getSingleIdeaRoute(routes.ideaRouteParams)} element={<IdeaPage />} />
             <Route path={routes.addNewIdeaRoute()} element={<AddIdeaPage />} />
+            <Route path={routes.getEditIdeaRoute(routes.editIdeaRouteParams)} element={<EditIdeaPage />} />
           </Route>
         </Routes>
       </BrowserRouter>
