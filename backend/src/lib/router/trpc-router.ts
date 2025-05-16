@@ -1,7 +1,7 @@
 import { inferRouterInputs, inferRouterOutputs } from '@trpc/server';
 import { trpc } from '../trpc';
 import { addIdeaTrpcRoute, editIdeaTrpcRoute, getIdeasTrpcRoute, getSingleIdeaTrpcRoute } from './endpoints/ideas';
-import { getMeTrpcRoute, signInTrpcRoute, signUpTrpcRoute } from './endpoints/users';
+import { editPasswordTrpcRoute, getMeTrpcRoute, signInTrpcRoute, signUpTrpcRoute } from './endpoints/users';
 import { editProfileTrpcRoute } from './endpoints/users/edit-user-profile-trpc-route';
 
 export const trpcRouter = trpc.router({
@@ -9,6 +9,7 @@ export const trpcRouter = trpc.router({
   signIn: signInTrpcRoute,
   getMe: getMeTrpcRoute,
   editUserProfile: editProfileTrpcRoute,
+  editPassword: editPasswordTrpcRoute,
   getAllIdeas: getIdeasTrpcRoute,
   getSingleIdea: getSingleIdeaTrpcRoute,
   addIdea: addIdeaTrpcRoute,
