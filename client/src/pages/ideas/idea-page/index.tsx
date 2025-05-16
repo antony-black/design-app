@@ -23,7 +23,10 @@ export const IdeaPage: React.FC = withPageWrapper({
 })(({ idea, me }) => (
   <Segment title={idea.name} description={idea.description}>
     <div className={styles.createdAt}>Created At: {format(idea.createdAt, 'yyyy-MM-dd')}</div>
-    <div className={styles.author}>Author: {idea.author.nick}</div>
+    <div className={styles.author}>
+      Author: {idea.author.nick}
+      {idea.author.name ? ` (${idea.author.name})` : ''}
+    </div>
     <div className={styles.text} dangerouslySetInnerHTML={{ __html: idea.text }} />
     {me?.id === idea.authorId && (
       <div className={styles.editButton}>
