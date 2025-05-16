@@ -1,5 +1,5 @@
 import { ErrorPageComponent } from '@/components';
-import { NotFoundPage } from '@/pages/not-found-page';
+import { NotFoundPage } from '@/pages/others/not-found-page';
 import { type UseTRPCQueryResult, type UseTRPCQuerySuccessResult } from '@trpc/react-query/shared';
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';

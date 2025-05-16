@@ -4,8 +4,8 @@ import { AddIdeaPage, AllIdeasPage, IdeaPage, SignInPage, SignOutPage, SignUpPag
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { AppContextProvider } from './lib/app-context';
 import { TrpcProvider } from './lib/trpc';
-import { EditIdeaPage } from './pages/edit-idea-page';
-import { NotFoundPage } from './pages/not-found-page';
+import { EditIdeaPage } from './pages/ideas/edit-idea-page';
+import { NotFoundPage } from './pages/others/not-found-page';
 
 export const App = () => {
   return (
