@@ -1,32 +1,25 @@
-import { CustomButton, CustomInput, CustomTextArea, FormItems, Notification, Segment } from '@/components';
+import { CustomButton, CustomInput, CustomTextArea, FormItems, Notification, Segment, useForm } from '@/components';
 import type { TEditIdeaRouteParams } from '@/lib/routes';
 import * as routes from '@/lib/routes';
 import { trpc } from '@/lib/trpc';
 import type { TIdea } from '@/types/input-types';
 import type { TtrpcRouterOutput } from '@design-app/backend/src/lib/router/trpc-router';
 import { zEditIdeaTrpcSchema } from '@design-app/backend/src/schemas/z-edit-idea-schema';
-import { useFormik } from 'formik';
-import { withZodSchema } from 'formik-validator-zod';
 import pick from 'lodash/pick';
-import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 const EditIdeaComponent = ({ idea }: { idea: NonNullable<TtrpcRouterOutput['getSingleIdea']['idea']> }) => {
   const navigate = useNavigate();
-  const [submittingError, setSubmittingError] = useState<string | null>(null);
   const updateIdea = trpc.editIdea.useMutation();
-  const formik = useFormik<TIdea>({
+  const { formik, buttonProps, notificationProps } = useForm({
     initialValues: pick(idea, ['name', 'nick', 'description', 'text']),
-    validate: withZodSchema(zEditIdeaTrpcSchema.omit({ ideaId: true })),
+    validationSchema: zEditIdeaTrpcSchema.omit({ ideaId: true }),
     onSubmit: async (values) => {
-      try {
-        setSubmittingError(null);
-        await updateIdea.mutateAsync({ ideaId: idea.id, ...values });
-        navigate(routes.getSingleIdeaRoute({ nick: values.nick }));
-      } catch (err: any) {
-        setSubmittingError(err.message);
-      }
+      await updateIdea.mutateAsync({ ideaId: idea.id, ...values });
+      navigate(routes.getSingleIdeaRoute({ nick: values.nick }));
     },
+    resetOnSuccess: false,
+    showValidationAlert: true,
   });
 
   return (
@@ -37,9 +30,8 @@ const EditIdeaComponent = ({ idea }: { idea: NonNullable<TtrpcRouterOutput['getS
           <CustomInput<TIdea> label="Nick" name="nick" formik={formik} />
           <CustomInput<TIdea> label="Description" name="description" maxWidth={500} formik={formik} />
           <CustomTextArea<TIdea> label="Text" name="text" formik={formik} />
-          {!formik.isValid && !!formik.submitCount && <Notification color="red">Some fields are invalid</Notification>}
-          {submittingError && <Notification color="red">{submittingError}</Notification>}
-          <CustomButton isLoading={formik.isSubmitting}>Update Idea</CustomButton>
+          <Notification {...notificationProps} />
+          <CustomButton {...buttonProps}>Update Idea</CustomButton>
         </FormItems>
       </form>
     </Segment>

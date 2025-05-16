@@ -1,73 +1,45 @@
 import { CustomButton, CustomInput, FormItems, Notification, Segment } from '@/components';
+import { useForm } from '@/components/custom-form';
 import { getAllIdeasRoute } from '@/lib/routes';
 import { trpc } from '@/lib/trpc';
 import { zSignUpScheme } from '@design-app/backend/src/schemas/z-sign-up-schema';
-import { useFormik } from 'formik';
-import { withZodSchema } from 'formik-validator-zod';
 import Cookies from 'js-cookie';
-import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { z } from 'zod';
 
-type TSignUpPage = {
-  nick: string;
-  password: string;
-  passwordAgain: string;
-};
-
 export const SignUpPage: React.FC = () => {
-  const [error, setError] = useState<string>('');
   const navigate = useNavigate();
   const trpcUtils = trpc.useContext();
   const signUp = trpc.signUp.useMutation();
-  const formik = useFormik<TSignUpPage>({
+  const { formik, buttonProps, notificationProps } = useForm({
     initialValues: {
       nick: '',
       password: '',
       passwordAgain: '',
     },
-    validate: withZodSchema(
-      zSignUpScheme
-        .extend({
-          passwordAgain: z.string().min(1),
-        })
-        .superRefine((val, ctx) => {
-          if (val.password !== val.passwordAgain) {
-            ctx.addIssue({
-              code: z.ZodIssueCode.custom,
-              message: 'Passwords must be the same',
-              path: ['passwordAgain'],
-            });
-          }
-        }),
-    ),
-    onSubmit: async (values) => {
-      try {
-        const { token } = await signUp.mutateAsync(values);
-        Cookies.set('token', token, { expires: 99999 });
-        void trpcUtils.invalidate();
-        navigate(getAllIdeasRoute());
-      } catch (error) {
-        if (error instanceof Error) {
-          setError(error.message);
+    validationSchema: zSignUpScheme
+      .extend({
+        passwordAgain: z.string().min(1),
+      })
+      .superRefine((val, ctx) => {
+        if (val.password !== val.passwordAgain) {
+          ctx.addIssue({
+            code: z.ZodIssueCode.custom,
+            message: 'Passwords must be the same',
+            path: ['passwordAgain'],
+          });
         }
-      }
+      }),
+    onSubmit: async (values) => {
+      const { token } = await signUp.mutateAsync(values);
+      Cookies.set('token', token, { expires: 99999 });
+      void trpcUtils.invalidate();
+      navigate(getAllIdeasRoute());
     },
+    resetOnSuccess: false,
   });
 
-  // TODO: add to utils
-  useEffect(() => {
-    if (error.length > 0) {
-      const timeout = setTimeout(() => {
-        setError('');
-      }, 3000);
-      return () => {
-        clearTimeout(timeout);
-      };
-    }
-  }, [error]);
-
-  const { handleSubmit, isValid, submitCount, isSubmitting } = formik;
+  const { handleSubmit } = formik;
 
   return (
     <Segment title="Sign Up">
@@ -76,9 +48,8 @@ export const SignUpPage: React.FC = () => {
           <CustomInput label="Nick" name="nick" formik={formik} />
           <CustomInput label="Password" name="password" type="password" formik={formik} />
           <CustomInput label="Password again" name="passwordAgain" type="password" formik={formik} />
-          {!isValid && !!submitCount && <Notification color="red">Some fields are invalid.</Notification>}
-          {error && <Notification color={'red'}>{error}</Notification>}
-          <CustomButton isLoading={isSubmitting}>Sign up</CustomButton>
+          <Notification {...notificationProps} />
+          <CustomButton {...buttonProps}>Sign Up</CustomButton>
         </FormItems>
       </form>
     </Segment>

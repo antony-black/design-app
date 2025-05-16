@@ -1,9 +1,10 @@
 import cn from 'classnames';
 import styles from './index.module.scss';
 
-type TCustomButton = {
+export type TCustomButton = {
   children: React.ReactNode;
   isLoading: boolean;
+  disabled?: boolean;
 };
 
 export const CustomButton: React.FC<TCustomButton> = ({ children, isLoading = false }) => {
