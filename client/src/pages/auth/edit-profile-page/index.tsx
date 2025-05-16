@@ -5,9 +5,9 @@ import { zEditProfileTrpcSchema } from '@design-app/backend/src/schemas/z-edit-u
 
 export const EditProfilePage = withPageWrapper({
   authorizedOnly: true,
-  setProps: ({ ctx }) => ({
+  setProps: ({ getAuthorizedMe }) => ({
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    me: ctx.me!,
+    me: getAuthorizedMe(),
   }),
 })(({ me }) => {
   const trpcUtils = trpc.useContext();
