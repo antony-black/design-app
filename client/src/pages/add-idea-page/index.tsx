@@ -1,8 +1,11 @@
 import { CustomButton, CustomInput, CustomTextArea, FormItems, Notification, Segment, useForm } from '@/components';
+import { withPageWrapper } from '@/lib/page-wrapper';
 import { trpc } from '@/lib/trpc';
 import { zValidationScheme } from '@design-app/backend/src/schemas/z-validation-schema';
 
-export const AddIdeaPage: React.FC = () => {
+export const AddIdeaPage: React.FC = withPageWrapper({
+  authorizedOnly: true,
+})(() => {
   const addIdea = trpc.addIdea.useMutation();
   const { formik, buttonProps, notificationProps } = useForm({
     initialValues: {
@@ -42,4 +45,4 @@ export const AddIdeaPage: React.FC = () => {
       </form>
     </Segment>
   );
-};
+});

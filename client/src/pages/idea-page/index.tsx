@@ -1,48 +1,34 @@
 import { Segment } from '@/components';
 import { LinkButton } from '@/components/link-button';
-import { useMe } from '@/lib/app-context';
-import type { TideaRouteParams } from '@/lib/routes';
+import { withPageWrapper } from '@/lib/page-wrapper';
+import { getEditIdeaRoute, type TideaRouteParams } from '@/lib/routes';
 import { trpc } from '@/lib/trpc';
 import { format } from 'date-fns';
 import { useParams } from 'react-router-dom';
-import * as routes from '../../lib/routes';
 import styles from './index.module.scss';
 
-export const IdeaPage: React.FC = () => {
-  const { nick } = useParams<TideaRouteParams>();
-  const me = useMe();
-
-  // TODO: refactor "routes" & remove redundant checks
-  if (!nick) {
-    return <span>Missing idea nick.</span>;
-  }
-
-  const { data, isLoading, isFetching, error } = trpc.getSingleIdea.useQuery({ nick });
-
-  if (isLoading || isFetching) {
-    return <span>Loading...</span>;
-  }
-
-  if (!data?.idea) {
-    return <span>There are no idea.</span>;
-  }
-
-  if (error) {
-    return <span>{error.message}</span>;
-  }
-
-  const createdAt = format(data.idea.createdAt, 'yyyy-MM--dd');
-
-  return (
-    <Segment title={data.idea.name} description={data.idea.description}>
-      <div className={styles.createdAt}>{createdAt}</div>
-      <div className={styles.author}>Author: {data.idea.author.nick}</div>
-      <div className={styles.text} dangerouslySetInnerHTML={{ __html: data.idea.text }} />
-      {me?.id === data.idea.authorId && (
-        <div className={styles.editButton}>
-          <LinkButton to={routes.getEditIdeaRoute({ nick: data.idea.nick })}>Edit Idea</LinkButton>
-        </div>
-      )}
-    </Segment>
-  );
-};
+export const IdeaPage: React.FC = withPageWrapper({
+  useQuery: () => {
+    const { nick } = useParams() as TideaRouteParams;
+    return trpc.getSingleIdea.useQuery({
+      nick,
+    });
+  },
+  checkExists: ({ queryResult }) => !!queryResult.data.idea,
+  checkExistsMessage: 'Idea not found',
+  setProps: ({ queryResult, checkExists, ctx }) => ({
+    idea: checkExists(queryResult.data.idea, 'Idea not found'),
+    me: ctx.me,
+  }),
+})(({ idea, me }) => (
+  <Segment title={idea.name} description={idea.description}>
+    <div className={styles.createdAt}>Created At: {format(idea.createdAt, 'yyyy-MM-dd')}</div>
+    <div className={styles.author}>Author: {idea.author.nick}</div>
+    <div className={styles.text} dangerouslySetInnerHTML={{ __html: idea.text }} />
+    {me?.id === idea.authorId && (
+      <div className={styles.editButton}>
+        <LinkButton to={getEditIdeaRoute({ nick: idea.nick })}>Edit Idea</LinkButton>
+      </div>
+    )}
+  </Segment>
+));

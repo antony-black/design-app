@@ -1,14 +1,14 @@
 import { CustomButton, CustomInput, FormItems, Notification, Segment } from '@/components';
 import { useForm } from '@/components/custom-form';
-import { getAllIdeasRoute } from '@/lib/routes';
+import { withPageWrapper } from '@/lib/page-wrapper';
 import { trpc } from '@/lib/trpc';
 import { zSignUpScheme } from '@design-app/backend/src/schemas/z-sign-up-schema';
 import Cookies from 'js-cookie';
-import { useNavigate } from 'react-router-dom';
 import { z } from 'zod';
 
-export const SignUpPage: React.FC = () => {
-  const navigate = useNavigate();
+export const SignUpPage: React.FC = withPageWrapper({
+  redirectAuthorized: true,
+})(() => {
   const trpcUtils = trpc.useContext();
   const signUp = trpc.signUp.useMutation();
   const { formik, buttonProps, notificationProps } = useForm({
@@ -34,7 +34,6 @@ export const SignUpPage: React.FC = () => {
       const { token } = await signUp.mutateAsync(values);
       Cookies.set('token', token, { expires: 99999 });
       void trpcUtils.invalidate();
-      navigate(getAllIdeasRoute());
     },
     resetOnSuccess: false,
   });
@@ -54,4 +53,4 @@ export const SignUpPage: React.FC = () => {
       </form>
     </Segment>
   );
-};
+});
