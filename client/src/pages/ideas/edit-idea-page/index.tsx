@@ -11,6 +11,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 export const EditIdeaPage = withPageWrapper({
   authorizedOnly: true,
+  title: ({ idea }) => `Edit Idea "${idea.name}"`,
   useQuery: () => {
     const { nick } = useParams() as TEditIdeaRouteParams;
     return trpc.getSingleIdea.useQuery({

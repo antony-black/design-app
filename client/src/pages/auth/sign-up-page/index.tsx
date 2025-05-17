@@ -8,6 +8,7 @@ import { z } from 'zod';
 
 export const SignUpPage: React.FC = withPageWrapper({
   redirectAuthorized: true,
+  title: 'Sign Up',
 })(() => {
   const trpcUtils = trpc.useContext();
   const signUp = trpc.signUp.useMutation();

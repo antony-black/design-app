@@ -77,6 +77,7 @@ export const IdeaPage: React.FC = withPageWrapper({
     me: ctx.me,
   }),
   showLoaderOnFetching: false,
+  title: ({ idea }) => idea.name,
 })(({ idea, me }) => (
   <Segment title={idea.name} description={idea.description}>
     <div className={styles.createdAt}>Created At: {format(idea.createdAt, 'yyyy-MM-dd')}</div>

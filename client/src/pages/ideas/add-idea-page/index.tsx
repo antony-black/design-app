@@ -5,6 +5,7 @@ import { zValidationScheme } from '@design-app/backend/src/schemas/z-validation-
 
 export const AddIdeaPage: React.FC = withPageWrapper({
   authorizedOnly: true,
+  title: 'New Idea',
 })(() => {
   const addIdea = trpc.addIdea.useMutation();
   const { formik, buttonProps, notificationProps } = useForm({

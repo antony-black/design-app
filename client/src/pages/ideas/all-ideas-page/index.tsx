@@ -6,8 +6,12 @@ import InfiniteScroll from 'react-infinite-scroller';
 import { Link } from 'react-router-dom';
 import { useDebounceValue } from 'usehooks-ts';
 import styles from './index.module.scss';
+import { withPageWrapper } from '@/lib/page-wrapper';
 
-export const AllIdeasPage = () => {
+export const AllIdeasPage = withPageWrapper({
+  title: 'IdeaNick',
+  isTitleExact: true,
+})(() => {
   const { formik } = useForm({
     initialValues: { search: '' },
     validationSchema: zGetIdeasTrpcSchema.pick({ search: true }),
@@ -76,4 +80,4 @@ export const AllIdeasPage = () => {
       )}
     </Segment>
   );
-};
+});

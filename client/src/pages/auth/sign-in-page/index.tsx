@@ -7,6 +7,7 @@ import Cookies from 'js-cookie';
 
 export const SignInPage: React.FC = withPageWrapper({
   redirectAuthorized: true,
+  title: 'Sign In',
 })(() => {
   const trpcUtils = trpc.useContext();
   const singIn = trpc.signIn.useMutation();
