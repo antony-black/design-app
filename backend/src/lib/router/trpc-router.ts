@@ -1,6 +1,7 @@
 import { inferRouterInputs, inferRouterOutputs } from '@trpc/server';
 import { trpc } from '../trpc';
 import { addIdeaTrpcRoute, editIdeaTrpcRoute, getIdeasTrpcRoute, getSingleIdeaTrpcRoute } from './endpoints/ideas';
+import { blockIdeaTrpcRoute } from './endpoints/ideas/block-idea-trpc-route';
 import { setLikeTrpcRoute } from './endpoints/ideas/set-like-tprc-route';
 import { editPasswordTrpcRoute, getMeTrpcRoute, signInTrpcRoute, signUpTrpcRoute } from './endpoints/users';
 import { editProfileTrpcRoute } from './endpoints/users/edit-user-profile-trpc-route';
@@ -16,6 +17,7 @@ export const trpcRouter = trpc.router({
   addIdea: addIdeaTrpcRoute,
   editIdea: editIdeaTrpcRoute,
   setLike: setLikeTrpcRoute,
+  blockIdea: blockIdeaTrpcRoute,
 });
 
 export type TtrpcRouter = typeof trpcRouter;

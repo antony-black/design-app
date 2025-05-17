@@ -1,4 +1,5 @@
 import { zEditIdeaTrpcSchema } from '../../../../../schemas/z-edit-idea-schema';
+import { canEditIdea } from '../../../../../utils/handle-permissions-idea';
 import { trpc } from '../../../../trpc';
 
 export const editIdeaTrpcRoute = trpc.procedure
@@ -15,7 +16,7 @@ export const editIdeaTrpcRoute = trpc.procedure
       throw Error('NOT FOUND.');
     }
 
-    if (appContext.me.id !== idea.authorId) {
+    if (!canEditIdea(appContext.me, idea)) {
       throw new Error('NOT_YOUR_IDEA');
     }
 

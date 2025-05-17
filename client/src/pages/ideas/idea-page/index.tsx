@@ -1,12 +1,34 @@
-import { Segment } from '@/components';
+import { CustomButton, FormItems, Notification, Segment, useForm } from '@/components';
 import { LinkButton } from '@/components/link-button';
 import { withPageWrapper } from '@/lib/page-wrapper';
 import { getEditIdeaRoute, type TideaRouteParams } from '@/lib/routes';
 import { trpc } from '@/lib/trpc';
 import type { TtrpcRouterOutput } from '@design-app/backend/src/lib/router/trpc-router';
+import { canBlockIdeas, canEditIdea } from '@design-app/backend/src/utils/handle-permissions-idea';
 import { format } from 'date-fns';
 import { useParams } from 'react-router-dom';
 import styles from './index.module.scss';
+
+const BlockIdea = ({ idea }: { idea: NonNullable<TtrpcRouterOutput['getSingleIdea']['idea']> }) => {
+  const blockIdea = trpc.blockIdea.useMutation();
+  const trpcUtils = trpc.useContext();
+  const { formik, notificationProps, buttonProps } = useForm({
+    onSubmit: async () => {
+      await blockIdea.mutateAsync({ ideaId: idea.id });
+      await trpcUtils.getSingleIdea.refetch({ nick: idea.nick });
+    },
+  });
+  return (
+    <form onSubmit={formik.handleSubmit}>
+      <FormItems>
+        <Notification {...notificationProps} />
+        <CustomButton color="red" {...buttonProps}>
+          Block Idea
+        </CustomButton>
+      </FormItems>
+    </form>
+  );
+};
 
 const LikeButton = ({ idea }: { idea: NonNullable<TtrpcRouterOutput['getSingleIdea']['idea']> }) => {
   const trpcUtils = trpc.useContext();
@@ -72,9 +94,14 @@ export const IdeaPage: React.FC = withPageWrapper({
         </>
       )}
     </div>
-    {me?.id === idea.authorId && (
+    {canEditIdea(me, idea) && (
       <div className={styles.editButton}>
         <LinkButton to={getEditIdeaRoute({ nick: idea.nick })}>Edit Idea</LinkButton>
+      </div>
+    )}
+    {canBlockIdeas(me) && (
+      <div className={styles.blockIdea}>
+        <BlockIdea idea={idea} />
       </div>
     )}
   </Segment>

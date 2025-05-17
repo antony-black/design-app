@@ -5,6 +5,7 @@ import * as routes from '@/lib/routes';
 import { trpc } from '@/lib/trpc';
 import type { TIdea } from '@/types/input-types';
 import { zEditIdeaTrpcSchema } from '@design-app/backend/src/schemas/z-edit-idea-schema';
+import { canEditIdea } from '@design-app/backend/src/utils/handle-permissions-idea';
 import pick from 'lodash/pick';
 import { useNavigate, useParams } from 'react-router-dom';
 
@@ -18,7 +19,7 @@ export const EditIdeaPage = withPageWrapper({
   },
   setProps: ({ queryResult, ctx, checkExists, checkAccess }) => {
     const idea = checkExists(queryResult.data.idea, 'Idea not found');
-    checkAccess(ctx.me?.id === idea.authorId, 'An idea can only be edited by the author');
+    checkAccess(canEditIdea(ctx.me, idea), 'An idea can only be edited by the author');
     return {
       idea,
     };
