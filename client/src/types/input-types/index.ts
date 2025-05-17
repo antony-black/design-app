@@ -12,6 +12,6 @@ export type TCustomInput<T> = {
   label: string;
   formik: FormikProps<T>;
   disabled?: boolean;
-  maxWidth?: number;
+  maxWidth?: number | string;
   type?: 'text' | 'password';
 };

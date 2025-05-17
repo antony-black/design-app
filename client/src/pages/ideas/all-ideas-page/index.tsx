@@ -1,14 +1,23 @@
-import { layoutContentElRef, Loader, Notification, Segment } from '@/components';
+import { CustomInput, layoutContentElRef, Loader, Notification, Segment, useForm } from '@/components';
 import * as routes from '@/lib/routes';
 import { trpc } from '@/lib/trpc';
+import { zGetIdeasTrpcSchema } from '@design-app/backend/src/schemas/z-get-ideas-schema';
 import InfiniteScroll from 'react-infinite-scroller';
 import { Link } from 'react-router-dom';
+import { useDebounceValue } from 'usehooks-ts';
 import styles from './index.module.scss';
 
 export const AllIdeasPage = () => {
+  const { formik } = useForm({
+    initialValues: { search: '' },
+    validationSchema: zGetIdeasTrpcSchema.pick({ search: true }),
+  });
+  const [search] = useDebounceValue(formik.values.search, 500);
   const { data, error, isLoading, isError, hasNextPage, fetchNextPage, isFetchingNextPage, isRefetching } =
     trpc.getAllIdeas.useInfiniteQuery(
-      {},
+      {
+        search,
+      },
       {
         getNextPageParam: (lastPage) => lastPage.nextCursor,
       },
@@ -16,10 +25,15 @@ export const AllIdeasPage = () => {
 
   return (
     <Segment title="All Ideas">
+      <div className={styles.filter}>
+        <CustomInput maxWidth={'100%'} label="Search" name="search" formik={formik} />
+      </div>
       {isLoading || isRefetching ? (
         <Loader type="section" />
       ) : isError ? (
         <Notification color="red">{error.message}</Notification>
+      ) : !data.pages[0].ideas.length ? (
+        <Notification color="brown">Nothing found by search</Notification>
       ) : (
         <div className={styles.ideas}>
           <InfiniteScroll
@@ -52,7 +66,9 @@ export const AllIdeasPage = () => {
                       </Link>
                     }
                     description={idea.description}
-                  />
+                  >
+                    Likes: {idea.likesCount}
+                  </Segment>
                 </div>
               ))}
           </InfiniteScroll>

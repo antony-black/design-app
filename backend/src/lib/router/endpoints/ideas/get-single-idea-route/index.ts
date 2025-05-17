@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import { z } from 'zod';
 import { trpc } from '../../../../trpc';
 
@@ -8,7 +9,7 @@ export const getSingleIdeaTrpcRoute = trpc.procedure
     }),
   )
   .query(async ({ ctx: appContext, input }) => {
-    const idea = await appContext.prisma.idea.findUnique({
+    const rawIdea = await appContext.prisma.idea.findUnique({
       where: { nick: input.nick },
       include: {
         author: {
@@ -18,8 +19,25 @@ export const getSingleIdeaTrpcRoute = trpc.procedure
             name: true,
           },
         },
+        likes: {
+          select: {
+            id: true,
+          },
+          where: {
+            userId: appContext.me?.id,
+          },
+        },
+        _count: {
+          select: {
+            likes: true,
+          },
+        },
       },
     });
+
+    const isLikedByMe = !!rawIdea?.likes.length;
+    const likesCount = rawIdea?._count.likes || 0;
+    const idea = rawIdea && { ..._.omit(rawIdea, ['likes', '_count']), isLikedByMe, likesCount };
 
     return { idea };
   });
