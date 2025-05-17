@@ -5,5 +5,6 @@ export * from './custom-textarea';
 export * from './error-page-component';
 export * from './form-items';
 export * from './layout';
+export * from './loader';
 export * from './notification';
 export * from './segment';

@@ -1,3 +1,4 @@
+import { Loader } from '@/components';
 import Cookies from 'js-cookie';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -14,5 +15,5 @@ export const SignOutPage = () => {
     });
   }, []);
 
-  return <p>Loading...</p>;
+  return <Loader type="page" />;
 };

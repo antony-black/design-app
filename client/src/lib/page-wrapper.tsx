@@ -1,4 +1,4 @@
-import { ErrorPageComponent } from '@/components';
+import { ErrorPageComponent, Loader } from '@/components';
 import { NotFoundPage } from '@/pages/others/not-found-page';
 import { type UseTRPCQueryResult, type UseTRPCQuerySuccessResult } from '@trpc/react-query/shared';
 import React, { useEffect } from 'react';
@@ -93,7 +93,7 @@ const PageWrapper = <TProps extends Props = {}, TQueryResult extends QueryResult
   }, [redirectNeeded, navigate]);
 
   if (queryResult?.isLoading || queryResult?.isFetching || redirectNeeded) {
-    return <p>Loading...</p>;
+    return <Loader type="page" />;
   }
 
   if (queryResult?.isError) {

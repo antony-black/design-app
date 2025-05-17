@@ -9,8 +9,12 @@ export type TCustomButton = {
 
 export const CustomButton: React.FC<TCustomButton> = ({ children, isLoading = false }) => {
   return (
-    <button className={cn({ [styles.btn]: true, [styles.disabled]: isLoading })} type="submit" disabled={isLoading}>
-      {isLoading ? 'Submitting...' : children}
+    <button
+      className={cn({ [styles.btn]: true, [styles.disabled]: isLoading, [styles.loading]: isLoading })}
+      type="submit"
+      disabled={isLoading}
+    >
+      <span className={styles.text}>{children}</span>
     </button>
   );
 };

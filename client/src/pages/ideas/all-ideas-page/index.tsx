@@ -1,4 +1,4 @@
-import { layoutContentElRef, Notification, Segment } from '@/components';
+import { layoutContentElRef, Loader, Notification, Segment } from '@/components';
 import * as routes from '@/lib/routes';
 import { trpc } from '@/lib/trpc';
 import InfiniteScroll from 'react-infinite-scroller';
@@ -17,7 +17,7 @@ export const AllIdeasPage = () => {
   return (
     <Segment title="All Ideas">
       {isLoading || isRefetching ? (
-        <div>Loading...</div>
+        <Loader type="section" />
       ) : isError ? (
         <Notification color="red">{error.message}</Notification>
       ) : (
@@ -32,7 +32,7 @@ export const AllIdeasPage = () => {
             hasMore={hasNextPage}
             loader={
               <div className={styles.more} key="loader">
-                Loading...
+                <Loader type="page" />
               </div>
             }
             getScrollParent={() => layoutContentElRef.current}
