@@ -1,4 +1,5 @@
 import { CustomButton, FormItems, Notification, Segment, useForm } from '@/components';
+import { Icon } from '@/components/icon';
 import { LinkButton } from '@/components/link-button';
 import { withPageWrapper } from '@/lib/page-wrapper';
 import { getEditIdeaRoute, type TideaRouteParams } from '@/lib/routes';
@@ -58,7 +59,7 @@ const LikeButton = ({ idea }: { idea: NonNullable<TtrpcRouterOutput['getSingleId
         void setIdeaLike.mutateAsync({ ideaId: idea.id, isLikedByMe: !idea.isLikedByMe });
       }}
     >
-      {idea.isLikedByMe ? 'Unlike' : 'Like'}
+      <Icon size={32} className={styles.likeIcon} name={idea.isLikedByMe ? 'likeFilled' : 'likeEmpty'} />
     </button>
   );
 };
