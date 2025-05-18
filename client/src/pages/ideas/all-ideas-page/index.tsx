@@ -1,4 +1,5 @@
 import { CustomInput, layoutContentElRef, Loader, Notification, Segment, useForm } from '@/components';
+import { withPageWrapper } from '@/lib/page-wrapper';
 import * as routes from '@/lib/routes';
 import { trpc } from '@/lib/trpc';
 import { zGetIdeasTrpcSchema } from '@design-app/backend/src/schemas/z-get-ideas-schema';
@@ -6,10 +7,9 @@ import InfiniteScroll from 'react-infinite-scroller';
 import { Link } from 'react-router-dom';
 import { useDebounceValue } from 'usehooks-ts';
 import styles from './index.module.scss';
-import { withPageWrapper } from '@/lib/page-wrapper';
 
 export const AllIdeasPage = withPageWrapper({
-  title: 'IdeaNick',
+  title: 'Design App',
   isTitleExact: true,
 })(() => {
   const { formik } = useForm({
