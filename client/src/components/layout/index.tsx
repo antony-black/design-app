@@ -2,6 +2,7 @@ import { useMe } from '@/lib/app-context';
 import * as routes from '@/lib/routes';
 import { createRef } from 'react';
 import { Link, Outlet } from 'react-router-dom';
+import Logo from '../../assets/images/logo.svg?react';
 import styles from './index.module.scss';
 
 export const layoutContentElRef = createRef<HTMLDivElement>();
@@ -12,7 +13,7 @@ export const Layout = () => {
   return (
     <div className={styles.layout}>
       <div className={styles.navigation}>
-        <h1 className={styles.logo}>IdeaNick</h1>
+        <Logo className={styles.logo} />
         <ul className={styles.menu}>
           <li className={styles.item}>
             <Link className={styles.link} to={routes.getAllIdeasRoute()}>
