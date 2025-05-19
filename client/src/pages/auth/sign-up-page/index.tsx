@@ -15,6 +15,7 @@ export const SignUpPage: React.FC = withPageWrapper({
   const { formik, buttonProps, notificationProps } = useForm({
     initialValues: {
       nick: '',
+      email: '',
       password: '',
       passwordAgain: '',
     },
@@ -46,6 +47,7 @@ export const SignUpPage: React.FC = withPageWrapper({
       <form onSubmit={handleSubmit}>
         <FormItems>
           <CustomInput label="Nick" name="nick" formik={formik} />
+          <CustomInput label="E-mail" name="email" formik={formik} />
           <CustomInput label="Password" name="password" type="password" formik={formik} />
           <CustomInput label="Password again" name="passwordAgain" type="password" formik={formik} />
           <Notification {...notificationProps} />
