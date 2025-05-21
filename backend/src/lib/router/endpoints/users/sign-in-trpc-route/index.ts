@@ -1,9 +1,9 @@
-import { zSignUpScheme } from '../../../../../schemas/z-sign-up-schema';
+import { zSignInScheme } from '../../../../../schemas/z-sign-in-schema';
 import { getPasswordHash } from '../../../../../utils/get-password-hash';
 import { signJWT } from '../../../../../utils/sign-jwt';
 import { trpc } from '../../../../trpc';
 
-export const signInTrpcRoute = trpc.procedure.input(zSignUpScheme).mutation(async ({ ctx: appContext, input }) => {
+export const signInTrpcRoute = trpc.procedure.input(zSignInScheme).mutation(async ({ ctx: appContext, input }) => {
   const user = await appContext.prisma.user.findFirst({
     where: {
       nick: input.nick,
