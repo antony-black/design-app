@@ -2,7 +2,7 @@ import { CustomButton, CustomInput, FormItems, Notification, Segment } from '@/c
 import { useForm } from '@/components/custom-form';
 import { withPageWrapper } from '@/lib/page-wrapper';
 import { trpc } from '@/lib/trpc';
-import { zSignUpScheme } from '@design-app/backend/src/schemas/z-sign-up-schema';
+import { zSignInScheme } from '@design-app/backend/src/schemas/z-sign-in-schema';
 import Cookies from 'js-cookie';
 
 export const SignInPage: React.FC = withPageWrapper({
@@ -16,7 +16,7 @@ export const SignInPage: React.FC = withPageWrapper({
       nick: '',
       password: '',
     },
-    validationSchema: zSignUpScheme,
+    validationSchema: zSignInScheme,
     onSubmit: async (values) => {
       const { token } = await singIn.mutateAsync(values);
       Cookies.set('token', token, { expires: 99999 });
