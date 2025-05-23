@@ -4,6 +4,7 @@ import { promises as fs } from 'fs';
 import Handlebars from 'handlebars';
 import _ from 'lodash';
 import path from 'path';
+import { sendEmailThroughBrevo } from './brevo';
 import { env } from './env';
 
 const getHbrTemplates = _.memoize(async () => {
@@ -82,13 +83,13 @@ const sendEmail = async ({
     };
 
     const html = await getEmailHtml(templateName, fullTemplateVaraibles);
+    const { loggableResponse } = await sendEmailThroughBrevo({ to, html, subject });
 
     console.info('sendEmail', {
       to,
-      subject,
       templateName,
-      fullTemplateVaraibles,
-      html,
+      templateVariables,
+      response: loggableResponse,
     });
     return { ok: true };
   } catch (error) {
