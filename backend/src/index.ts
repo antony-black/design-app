@@ -24,6 +24,8 @@ void (async () => {
     expressApp.listen(env.PORT, () => {
       console.info(`Listening at http://localhost:${env.PORT}`);
     });
+
+    // void sendWelcomeEmail({ user: { nick: 'test', email: `${Math.random().toString()}@example.com}` } });
   } catch (error) {
     console.error(error);
     await appContext?.stop();

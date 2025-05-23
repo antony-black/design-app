@@ -3,11 +3,11 @@
   "private": true,
   "version": "0.0.0",
   "scripts": {
-    "start": "node ./dist/index.js",
+    "start": "node ./dist/backend/src/index.js",
     "dev": "ts-node-dev --watch ./src/emails/dist,./.env --rs --exit-child ./src/index.ts",
     "build-emails": "shx rm -rf ./src/emails/dist && shx mkdir -p ./src/emails/dist && mjml ./src/emails/*.mjml -o ./src/emails/dist",
     "watch-emails": "mjml -w ./src/emails/*.mjml -o ./src/emails/dist",
-    "copy-emails": "copyfiles -u 1 ./src/emails/dist/*.html ./dist",
+    "copy-emails": "copyfiles ./src/emails/dist/*.html ./dist/backend",
     "build-ts": "rimraf ./dist && tsc --build ./tsconfig.json",
     "build": "pnpm build-ts && pnpm build-emails && pnpm copy-emails",
     "pmd": "prisma migrate dev",
@@ -17,7 +17,7 @@
     "types": "tsc --noEmit --project ./tsconfig.json",
     "lint": "eslint --cache --cache-location ./node_modules/.cache/.eslintcache --ext .ts .",
     "prettify": "prettier --log-level warn --cache --write \"src/**/*.{js,ts,jsx,tsx,json,css,scss,md,yml,yaml}\" \"*.{js,ts,json,md,yml,yaml}\"",
-    "prepare": "pnpm pgc"
+    "prepare": "pnpm pgc && ts-patch install -s"
   },
   "keywords": [],
   "author": "",
@@ -38,6 +38,7 @@
     "schema": "./src/prisma/schema.prisma"
   },
   "dependencies": {
+    "@design-app/client": "workspace:*",
     "@prisma/client": "^6.7.0",
     "@trpc/server": "^10.37.1",
     "axios": "^1.9.0",
