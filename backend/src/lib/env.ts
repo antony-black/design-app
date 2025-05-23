@@ -2,7 +2,7 @@ import * as dotenv from 'dotenv';
 import { z } from 'zod';
 
 dotenv.config();
-console.log('sdfdsf');
+
 const zEnv = z.object({
   PORT: z.string().trim().min(1),
   DATABASE_URL: z.string().trim().min(1),

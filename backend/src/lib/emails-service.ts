@@ -7,16 +7,54 @@ import path from 'path';
 import { env } from './env';
 
 const getHbrTemplates = _.memoize(async () => {
-  const htmlPathsPattern = path.resolve(__dirname, '../emails/dist/**/*.html');
+  const distDir = path.resolve(__dirname, '../emails/dist');
+  const htmlPathsPattern = path.join(distDir, '*.html').replace(/\\/g, '/');
+
   const htmlPaths = fg.sync(htmlPathsPattern);
   const hbrTemplates: Record<string, HandlebarsTemplateDelegate> = {};
+
   for (const htmlPath of htmlPaths) {
     const templateName = path.basename(htmlPath, '.html');
     const htmlTemplate = await fs.readFile(htmlPath, 'utf8');
     hbrTemplates[templateName] = Handlebars.compile(htmlTemplate);
   }
+
   return hbrTemplates;
 });
+//   const distDir = path.resolve(__dirname, '../emails/dist');
+//   const htmlPathsPattern = path.join(distDir, '*.html').replace(/\\/g, '/');
+
+//   // Debug: check folder existence
+//   const folderExists = existsSync(distDir);
+//   console.log('>>>> Checking folder:', distDir);
+//   console.log('>>>> Folder exists:', folderExists);
+
+//   if (folderExists) {
+//     const files = readdirSync(distDir);
+//     console.log('>>>> Files in folder:', files);
+//   } else {
+//     console.warn('>>>> Email templates directory does not exist!');
+//   }
+
+//   // Debug: log the glob pattern
+//   console.log('>>>> Glob pattern:', htmlPathsPattern);
+
+//   // Use cwd to avoid platform path quirks
+//   const htmlFiles = fg.sync('*.html', { cwd: distDir });
+//   const htmlPaths = htmlFiles.map((file) => path.join(distDir, file));
+
+//   console.log('>>>> Matched HTML paths:', htmlPaths);
+
+//   // Compile templates
+//   const hbrTemplates: Record<string, HandlebarsTemplateDelegate> = {};
+//   for (const htmlPath of htmlPaths) {
+//     const templateName = path.basename(htmlPath, '.html');
+//     const htmlTemplate = await fs.readFile(htmlPath, 'utf8');
+//     hbrTemplates[templateName] = Handlebars.compile(htmlTemplate);
+//   }
+
+//   return hbrTemplates;
+// });
 
 const getEmailHtml = async (templateName: string, templateVariables: Record<string, string> = {}) => {
   const hbrTemplates = await getHbrTemplates();
