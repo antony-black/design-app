@@ -1,19 +1,19 @@
 import { CustomButton, CustomInput, CustomTextArea, FormItems, Notification, Segment, useForm } from '@/components';
 import { withPageWrapper } from '@/lib/page-wrapper';
-import type { TEditIdeaRouteParams } from '@/lib/routes';
 import * as routes from '@/lib/routes';
+import { getEditIdeaRoute } from '@/lib/routes';
 import { trpc } from '@/lib/trpc';
 import type { TIdea } from '@/types/input-types';
 import { zEditIdeaTrpcSchema } from '@design-app/backend/src/schemas/z-edit-idea-schema';
 import { canEditIdea } from '@design-app/backend/src/utils/handle-permissions-idea';
 import pick from 'lodash/pick';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 export const EditIdeaPage = withPageWrapper({
   authorizedOnly: true,
   title: ({ idea }) => `Edit Idea "${idea.name}"`,
   useQuery: () => {
-    const { nick } = useParams() as TEditIdeaRouteParams;
+    const { nick } = getEditIdeaRoute.useParams();
     return trpc.getSingleIdea.useQuery({
       nick,
     });

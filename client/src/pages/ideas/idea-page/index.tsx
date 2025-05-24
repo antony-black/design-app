@@ -2,12 +2,11 @@ import { CustomButton, FormItems, Notification, Segment, useForm } from '@/compo
 import { Icon } from '@/components/icon';
 import { LinkButton } from '@/components/link-button';
 import { withPageWrapper } from '@/lib/page-wrapper';
-import { getEditIdeaRoute, type TideaRouteParams } from '@/lib/routes';
+import { getEditIdeaRoute, getSingleIdeaRoute } from '@/lib/routes';
 import { trpc } from '@/lib/trpc';
 import type { TtrpcRouterOutput } from '@design-app/backend/src/lib/router/trpc-router';
 import { canBlockIdeas, canEditIdea } from '@design-app/backend/src/utils/handle-permissions-idea';
 import { format } from 'date-fns';
-import { useParams } from 'react-router-dom';
 import styles from './index.module.scss';
 
 const BlockIdea = ({ idea }: { idea: NonNullable<TtrpcRouterOutput['getSingleIdea']['idea']> }) => {
@@ -66,7 +65,7 @@ const LikeButton = ({ idea }: { idea: NonNullable<TtrpcRouterOutput['getSingleId
 
 export const IdeaPage: React.FC = withPageWrapper({
   useQuery: () => {
-    const { nick } = useParams() as TideaRouteParams;
+    const { nick } = getSingleIdeaRoute.useParams();
     return trpc.getSingleIdea.useQuery({
       nick,
     });

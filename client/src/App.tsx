@@ -23,15 +23,15 @@ export const App = () => {
         <AppContextProvider>
           <BrowserRouter>
             <Routes>
-              <Route path={routes.getSignOutRoute()} element={<SignOutPage />} />
+              <Route path={routes.getSignOutRoute.definition} element={<SignOutPage />} />
               <Route element={<Layout />}>
-                <Route path={routes.getSignUpRoute()} element={<SignUpPage />} />
-                <Route path={routes.getSignInRoute()} element={<SignInPage />} />
-                <Route path={routes.getEditProfileRoute()} element={<EditProfilePage />} />
-                <Route path={routes.getAllIdeasRoute()} element={<AllIdeasPage />} />
-                <Route path={routes.getSingleIdeaRoute(routes.ideaRouteParams)} element={<IdeaPage />} />
-                <Route path={routes.addNewIdeaRoute()} element={<AddIdeaPage />} />
-                <Route path={routes.getEditIdeaRoute(routes.editIdeaRouteParams)} element={<EditIdeaPage />} />
+                <Route path={routes.getSignUpRoute.definition} element={<SignUpPage />} />
+                <Route path={routes.getSignInRoute.definition} element={<SignInPage />} />
+                <Route path={routes.getEditProfileRoute.definition} element={<EditProfilePage />} />
+                <Route path={routes.getAllIdeasRoute.definition} element={<AllIdeasPage />} />
+                <Route path={routes.getSingleIdeaRoute.definition} element={<IdeaPage />} />
+                <Route path={routes.getEditIdeaRoute.definition} element={<EditIdeaPage />} />
+                <Route path={routes.addNewIdeaRoute.definition} element={<AddIdeaPage />} />
                 <Route path="*" element={<NotFoundPage />} />
               </Route>
             </Routes>
@@ -41,3 +41,14 @@ export const App = () => {
     </HelmetProvider>
   );
 };
+// <Route path={routes.getSignOutRoute.definition} element={<SignOutPage />} />
+// <Route element={<Layout />}>
+//   <Route path={routes.getSignUpRoute.definition} element={<SignUpPage />} />
+//   <Route path={routes.getSignInRoute.definition} element={<SignInPage />} />
+//   <Route path={routes.getEditProfileRoute.definition} element={<EditProfilePage />} />
+//   <Route path={routes.getAllIdeasRoute.definition} element={<AllIdeasPage />} />
+//   <Route path={routes.getSingleIdeaRoute.definition} element={<IdeaPage />} />
+//   <Route path={routes.getEditIdeaRoute.definition} element={<EditIdeaPage />} />
+//   <Route path={routes.addNewIdeaRoute.definition} element={<AddIdeaPage />} />
+//   <Route path="*" element={<NotFoundPage />} />
+// </Route>
