@@ -80,7 +80,7 @@ const sendEmail = async ({
   try {
     const fullTemplateVaraibles = {
       ...templateVariables,
-      homeUrl: env.WEBAPP_URL,
+      homeUrl: env.CLIENT_URL,
     };
 
     const html = await getEmailHtml(templateName, fullTemplateVaraibles);

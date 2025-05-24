@@ -17,7 +17,7 @@ const zEnv = z.object({
   JWT_SECRET_KEY: zNonEmptyTrimmed,
   PASSWORD_SALT: zNonEmptyTrimmed,
   INITIAL_ADMIN_PASSWORD: zNonEmptyTrimmed,
-  WEBAPP_URL: zNonEmptyTrimmed,
+  CLIENT_URL: zNonEmptyTrimmed,
   BREVO_API_KEY: zNonEmptyTrimmedRequiredOnNotLocal,
   FROM_EMAIL_NAME: zNonEmptyTrimmed,
   FROM_EMAIL_ADDRESS: zNonEmptyTrimmed,

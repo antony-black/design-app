@@ -6,6 +6,15 @@ import packageJson from './package.json' with { type: 'json' };
 
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '');
+  const publicEnv = Object.entries(env).reduce((acc, [key, value]) => {
+    if (key.startsWith('VITE_')) {
+      return {
+        ...acc,
+        [key]: value,
+      };
+    }
+    return acc;
+  }, {});
 
   return {
     plugins: [react(), svgr()],
@@ -19,6 +28,9 @@ export default defineConfig(({ mode }) => {
     },
     preview: {
       port: +env.PORT,
+    },
+    define: {
+      'process.env': publicEnv,
     },
     build: {
       outDir: 'build',
