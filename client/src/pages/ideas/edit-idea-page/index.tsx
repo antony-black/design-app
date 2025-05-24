@@ -11,7 +11,6 @@ import { useNavigate } from 'react-router-dom';
 
 export const EditIdeaPage = withPageWrapper({
   authorizedOnly: true,
-  title: ({ idea }) => `Edit Idea "${idea.name}"`,
   useQuery: () => {
     const { nick } = getEditIdeaRoute.useParams();
     return trpc.getSingleIdea.useQuery({
@@ -25,6 +24,7 @@ export const EditIdeaPage = withPageWrapper({
       idea,
     };
   },
+  title: ({ idea }) => `Edit Idea "${idea.name}"`,
 })(({ idea }) => {
   const navigate = useNavigate();
   const updateIdea = trpc.editIdea.useMutation();
