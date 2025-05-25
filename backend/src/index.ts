@@ -1,6 +1,7 @@
 import cors from 'cors';
 import express from 'express';
 import { type AppContext, createAppContext } from './lib/app-context';
+import { applyCron } from './lib/cron';
 import { env } from './lib/env';
 import { applyPassportToExpressApp } from './lib/passport';
 import { trpcRouter } from './lib/router/trpc-router';
@@ -21,11 +22,13 @@ void (async () => {
     applyPassportToExpressApp(expressApp, appContext);
     applyTrpcToExpressApp(expressApp, appContext, trpcRouter);
 
+    applyCron(appContext);
     expressApp.listen(env.PORT, () => {
       console.info(`Listening at http://localhost:${env.PORT}`);
     });
 
     // void sendWelcomeEmail({ user: { nick: 'test', email: `${Math.random().toString()}@example.com}` } });
+    // void sendWelcomeEmail({ user: { nick: 'test', email: 'designapp79@gmail.com' } });
   } catch (error) {
     console.error(error);
     await appContext?.stop();

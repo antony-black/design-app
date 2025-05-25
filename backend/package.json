@@ -25,6 +25,7 @@
   "description": "",
   "devDependencies": {
     "@types/cors": "^2.8.18",
+    "@types/cron": "^2.4.3",
     "@types/express": "^5.0.1",
     "@types/jsonwebtoken": "^9.0.9",
     "@types/lodash": "^4.17.16",
@@ -43,6 +44,7 @@
     "@trpc/server": "^10.37.1",
     "axios": "^1.9.0",
     "cors": "^2.8.5",
+    "cron": "^4.3.0",
     "dotenv": "^16.5.0",
     "eslint-plugin-node": "^11.1.0",
     "express": "^5.1.0",
