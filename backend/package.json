@@ -40,6 +40,7 @@
   },
   "dependencies": {
     "@design-app/client": "workspace:*",
+    "@design-app/shared": "workspace:*",
     "@prisma/client": "^6.7.0",
     "@trpc/server": "^10.37.1",
     "axios": "^1.9.0",
