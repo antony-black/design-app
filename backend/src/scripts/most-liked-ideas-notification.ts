@@ -1,5 +1,6 @@
 import { type Idea } from '@prisma/client';
 import { AppContext } from '../lib/app-context';
+import { sendMostLikedIdeasEmail } from '../lib/emails-service';
 
 export const mostLikedIdeasNotification = async (appContext: AppContext) => {
   const mostLikedIdeas = await appContext.prisma.$queryRaw<
@@ -24,5 +25,18 @@ export const mostLikedIdeasNotification = async (appContext: AppContext) => {
     from "topIdeas"
     where "thisMonthLikesCount" > 0
   `;
-  console.info(mostLikedIdeas);
+  // console.info(mostLikedIdeas);
+  if (!mostLikedIdeas) {
+    return;
+  }
+
+  const users = await appContext.prisma.user.findMany({
+    select: {
+      email: true,
+    },
+  });
+
+  for (const user of users) {
+    await sendMostLikedIdeasEmail({ user, ideas: mostLikedIdeas });
+  }
 };
