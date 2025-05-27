@@ -8,7 +8,9 @@ export const applyCron = (appContext: AppContext) => {
   new CronJob(
     '0 10 1 * *', // At 10:00 on day-of-month 1
     () => {
-      mostLikedIdeasNotification(appContext).catch(logger.error);
+      mostLikedIdeasNotification(appContext).catch((error) => {
+        logger.error('cron', error);
+      });
     },
     null, // onComplete
     true, // start right now

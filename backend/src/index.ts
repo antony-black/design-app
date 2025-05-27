@@ -25,13 +25,13 @@ void (async () => {
 
     applyCron(appContext);
     expressApp.listen(env.PORT, () => {
-      logger.info(`Listening at http://localhost:${env.PORT}`);
+      logger.info('express', `Listening at http://localhost:${env.PORT}`);
     });
 
     // void sendWelcomeEmail({ user: { nick: 'test', email: `${Math.random().toString()}@example.com}` } });
     // void sendWelcomeEmail({ user: { nick: 'test', email: 'designapp79@gmail.com' } });
   } catch (error) {
-    logger.error(error);
+    logger.error('app', error);
     await appContext?.stop();
   }
 })();
