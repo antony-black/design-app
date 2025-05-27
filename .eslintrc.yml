@@ -37,12 +37,6 @@ rules:
     - skipTemplates: true
       skipStrings: true
   node/no-process-env: error
-  no-console:
-    - warn
-    - allow:
-        - info
-        - error
-        - warn
   no-restricted-syntax:
     - error
     - selector: '[object.type=MetaProperty][property.name=env]'

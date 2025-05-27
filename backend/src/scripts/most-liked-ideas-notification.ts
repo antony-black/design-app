@@ -25,7 +25,7 @@ export const mostLikedIdeasNotification = async (appContext: AppContext) => {
     from "topIdeas"
     where "thisMonthLikesCount" > 0
   `;
-  // console.info(mostLikedIdeas);
+  // logger.info(mostLikedIdeas);
   if (!mostLikedIdeas) {
     return;
   }
