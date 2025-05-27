@@ -1,4 +1,4 @@
-import { Layout } from '@/components';
+import { Layout, NotAuthRouteTracker } from '@/components';
 import * as routes from '@/lib/routes';
 import {
   AddIdeaPage,
@@ -22,6 +22,7 @@ export const App = () => {
       <TrpcProvider>
         <AppContextProvider>
           <BrowserRouter>
+            <NotAuthRouteTracker />
             <Routes>
               <Route path={routes.getSignOutRoute.definition} element={<SignOutPage />} />
               <Route element={<Layout />}>

@@ -6,5 +6,6 @@ export * from './error-page-component';
 export * from './form-items';
 export * from './layout';
 export * from './loader';
+export * from './not-auth-route-tracker';
 export * from './notification';
 export * from './segment';
