@@ -1,8 +1,8 @@
 import { zEditIdeaTrpcSchema } from '../../../../../schemas/z-edit-idea-schema';
 import { canEditIdea } from '../../../../../utils/handle-permissions-idea';
-import { trpc } from '../../../../trpc';
+import { trpcLoggedProcedure } from '../../../../trpc';
 
-export const editIdeaTrpcRoute = trpc.procedure
+export const editIdeaTrpcRoute = trpcLoggedProcedure
   .input(zEditIdeaTrpcSchema)
   .mutation(async ({ ctx: appContext, input }) => {
     const { ideaId, ...ideaInput } = input;

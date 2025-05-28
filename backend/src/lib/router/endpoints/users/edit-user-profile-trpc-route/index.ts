@@ -1,8 +1,8 @@
 import { zEditProfileTrpcSchema } from '../../../../../schemas/z-edit-user-profile-schema';
 import { toClientMe } from '../../../../models';
-import { trpc } from '../../../../trpc';
+import { trpcLoggedProcedure } from '../../../../trpc';
 
-export const editProfileTrpcRoute = trpc.procedure
+export const editProfileTrpcRoute = trpcLoggedProcedure
   .input(zEditProfileTrpcSchema)
   .mutation(async ({ ctx: appContext, input }) => {
     if (!appContext.me) {

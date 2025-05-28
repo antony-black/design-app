@@ -1,8 +1,8 @@
 import { zEditPasswordTrpcSchema } from '../../../../../schemas/z-edit-password-schema';
 import { getPasswordHash } from '../../../../../utils/get-password-hash';
-import { trpc } from '../../../../trpc';
+import { trpcLoggedProcedure } from '../../../../trpc';
 
-export const editPasswordTrpcRoute = trpc.procedure
+export const editPasswordTrpcRoute = trpcLoggedProcedure
   .input(zEditPasswordTrpcSchema)
   .mutation(async ({ ctx: appContext, input }) => {
     if (!appContext.me) {

@@ -1,7 +1,7 @@
-import { trpc } from '../../../../../lib/trpc';
+import { trpcLoggedProcedure } from '../../../../../lib/trpc';
 import { zSetLikeTrpcSchema } from '../../../../../schemas/z-set-like-schema';
 
-export const setLikeTrpcRoute = trpc.procedure
+export const setLikeTrpcRoute = trpcLoggedProcedure
   .input(zSetLikeTrpcSchema)
   .mutation(async ({ ctx: appContext, input }) => {
     const { ideaId, isLikedByMe } = input;

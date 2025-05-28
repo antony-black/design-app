@@ -1,9 +1,9 @@
 import { zBlockIdeaTrpcSchema } from '../../../../../schemas/z-blocked-idea-chema';
 import { canBlockIdeas } from '../../../../../utils/handle-permissions-idea';
 import { sendIdeaBlockedEmail } from '../../../../emails-service';
-import { trpc } from '../../../../trpc';
+import { trpcLoggedProcedure } from '../../../../trpc';
 
-export const blockIdeaTrpcRoute = trpc.procedure.input(zBlockIdeaTrpcSchema).mutation(async ({ ctx, input }) => {
+export const blockIdeaTrpcRoute = trpcLoggedProcedure.input(zBlockIdeaTrpcSchema).mutation(async ({ ctx, input }) => {
   const { ideaId } = input;
   if (!canBlockIdeas(ctx.me)) {
     throw new Error('PERMISSION_DENIED');
