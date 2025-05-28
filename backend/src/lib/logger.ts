@@ -5,6 +5,7 @@ import { serializeError } from 'serialize-error';
 import { MESSAGE } from 'triple-beam';
 import winston from 'winston';
 import * as yaml from 'yaml';
+import { deepMap } from '../utils/deep-map';
 import { env } from './env';
 
 export const winstonLogger = winston.createLogger({
@@ -58,14 +59,26 @@ export const winstonLogger = winston.createLogger({
   ],
 });
 
+type TMeta = Record<string, any> | undefined;
+
+const prettifyMeta = (meta: TMeta): TMeta => {
+  return deepMap(meta, ({ key, value }) => {
+    if (['email', 'password', 'newPassword', 'oldPassword', 'token', 'text', 'description'].includes(key)) {
+      return '🙈';
+    }
+
+    return value;
+  });
+};
+
 export const logger = {
-  info: (logType: string, message: string, meta?: Record<string, any>) => {
+  info: (logType: string, message: string, meta?: TMeta) => {
     // if (!debug.enabled(`design-app:${logType}`)) {
     //   return;
     // }
-    winstonLogger.info(message, { logType, ...meta });
+    winstonLogger.info(message, { logType, ...prettifyMeta(meta) });
   },
-  error: (logType: string, error: any, meta?: Record<string, any>) => {
+  error: (logType: string, error: any, meta?: TMeta) => {
     // if (!debug.enabled(`design-app:${logType}`)) {
     //   return;
     // }
@@ -74,7 +87,7 @@ export const logger = {
       logType,
       error,
       errorStack: serializedError.stack,
-      ...meta,
+      ...prettifyMeta(meta),
     });
   },
 };
