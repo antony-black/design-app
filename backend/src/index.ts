@@ -23,7 +23,18 @@ void (async () => {
     applyPassportToExpressApp(expressApp, appContext);
     applyTrpcToExpressApp(expressApp, appContext, trpcRouter);
 
+    //send emails automaticaly by schedule
     applyCron(appContext);
+
+    expressApp.use((error: unknown, req: express.Request, res: express.Response, next: express.NextFunction) => {
+      logger.error('express', error);
+      if (res.headersSent) {
+        next(error);
+        return;
+      }
+      res.status(500).send('Internal server error');
+    });
+
     expressApp.listen(env.PORT, () => {
       logger.info('express', `Listening at http://localhost:${env.PORT}`);
     });
