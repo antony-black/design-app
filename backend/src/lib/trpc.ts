@@ -5,6 +5,7 @@ import { type TtrpcRouter } from '../lib/router/trpc-router';
 import { type ExpressRequest } from '../types';
 import { type AppContext } from './app-context';
 import { logger } from './logger';
+import { ExpectedError } from './error';
 
 const createTrpcContext =
   (appContext: AppContext) =>
@@ -15,7 +16,18 @@ const createTrpcContext =
 
 type TtrpcContext = inferAsyncReturnType<ReturnType<typeof createTrpcContext>>;
 
-export const trpc = initTRPC.context<TtrpcContext>().create();
+export const trpc = initTRPC.context<TtrpcContext>().create({
+  errorFormatter: ({ shape, error }) => {
+    const isExpected = error.cause instanceof ExpectedError;
+    return {
+      ...shape,
+      data: {
+        ...shape.data,
+        isExpected,
+      },
+    };
+  },
+});
 
 export const createTrpcRouter = trpc.router;
 

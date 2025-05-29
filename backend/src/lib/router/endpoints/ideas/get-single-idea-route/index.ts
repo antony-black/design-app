@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import { z } from 'zod';
 import { trpcLoggedProcedure } from '../../../../trpc';
+import { ExpectedError } from '../../../../error';
 
 export const getSingleIdeaTrpcRoute = trpcLoggedProcedure
   .input(
@@ -36,7 +37,7 @@ export const getSingleIdeaTrpcRoute = trpcLoggedProcedure
     });
 
     if (rawIdea?.blockedAt) {
-      throw new Error('Idea is blocked by administrator');
+      throw new ExpectedError('Idea is blocked by administrator');
     }
 
     const isLikedByMe = !!rawIdea?.likes.length;

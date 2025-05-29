@@ -1,6 +1,7 @@
 import { zSignInScheme } from '../../../../../schemas/z-sign-in-schema';
 import { getPasswordHash } from '../../../../../utils/get-password-hash';
 import { signJWT } from '../../../../../utils/sign-jwt';
+import { ExpectedError } from '../../../../error';
 import { trpcLoggedProcedure } from '../../../../trpc';
 
 export const signInTrpcRoute = trpcLoggedProcedure.input(zSignInScheme).mutation(async ({ ctx: appContext, input }) => {
@@ -12,7 +13,7 @@ export const signInTrpcRoute = trpcLoggedProcedure.input(zSignInScheme).mutation
   });
 
   if (!user) {
-    throw Error('Wrong nick or password');
+    throw new ExpectedError('Wrong nick or password');
   }
 
   const token = signJWT(user.id);

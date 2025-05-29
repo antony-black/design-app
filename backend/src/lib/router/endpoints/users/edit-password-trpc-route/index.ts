@@ -1,5 +1,6 @@
 import { zEditPasswordTrpcSchema } from '../../../../../schemas/z-edit-password-schema';
 import { getPasswordHash } from '../../../../../utils/get-password-hash';
+import { ExpectedError } from '../../../../error';
 import { trpcLoggedProcedure } from '../../../../trpc';
 
 export const editPasswordTrpcRoute = trpcLoggedProcedure
@@ -10,7 +11,7 @@ export const editPasswordTrpcRoute = trpcLoggedProcedure
     }
 
     if (appContext.me.password !== getPasswordHash(input.currentPassword)) {
-      throw new Error('Wrong current password.');
+      throw new ExpectedError('Wrong current password.');
     }
 
     const editedPassword = await appContext.prisma.user.update({

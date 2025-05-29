@@ -1,4 +1,5 @@
 import { zValidationScheme } from '../../../../../schemas/z-validation-schema';
+import { ExpectedError } from '../../../../error';
 import { trpcLoggedProcedure } from '../../../../trpc';
 
 export const addIdeaTrpcRoute = trpcLoggedProcedure
@@ -10,7 +11,7 @@ export const addIdeaTrpcRoute = trpcLoggedProcedure
 
     const hasIdea = await appContext.prisma.idea.findUnique({ where: { nick: input.nick } });
     if (hasIdea) {
-      throw Error('Idea with the same nick has already existed.');
+      throw new ExpectedError('Idea with the same nick has already existed.');
     }
 
     const idea = await appContext.prisma.idea.create({

@@ -1,5 +1,6 @@
 import { zEditIdeaTrpcSchema } from '../../../../../schemas/z-edit-idea-schema';
 import { canEditIdea } from '../../../../../utils/handle-permissions-idea';
+import { ExpectedError } from '../../../../error';
 import { trpcLoggedProcedure } from '../../../../trpc';
 
 export const editIdeaTrpcRoute = trpcLoggedProcedure
@@ -8,16 +9,16 @@ export const editIdeaTrpcRoute = trpcLoggedProcedure
     const { ideaId, ...ideaInput } = input;
 
     if (!appContext.me) {
-      throw Error('UNAUTHORIZED');
+      throw new ExpectedError('UNAUTHORIZED');
     }
 
     const idea = await appContext.prisma.idea.findUnique({ where: { id: ideaId } });
     if (!idea) {
-      throw Error('NOT FOUND.');
+      throw new ExpectedError('NOT FOUND.');
     }
 
     if (!canEditIdea(appContext.me, idea)) {
-      throw new Error('NOT_YOUR_IDEA');
+      throw new ExpectedError('NOT_YOUR_IDEA');
     }
 
     if (idea.nick !== input.nick) {
@@ -27,7 +28,7 @@ export const editIdeaTrpcRoute = trpcLoggedProcedure
         },
       });
       if (hasIdea) {
-        throw new Error('Idea with this nick already exists');
+        throw new ExpectedError('Idea with this nick already exists');
       }
     }
 

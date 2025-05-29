@@ -1,6 +1,7 @@
 import { zBlockIdeaTrpcSchema } from '../../../../../schemas/z-blocked-idea-chema';
 import { canBlockIdeas } from '../../../../../utils/handle-permissions-idea';
 import { sendIdeaBlockedEmail } from '../../../../emails-service';
+import { ExpectedError } from '../../../../error';
 import { trpcLoggedProcedure } from '../../../../trpc';
 
 export const blockIdeaTrpcRoute = trpcLoggedProcedure.input(zBlockIdeaTrpcSchema).mutation(async ({ ctx, input }) => {
@@ -17,7 +18,7 @@ export const blockIdeaTrpcRoute = trpcLoggedProcedure.input(zBlockIdeaTrpcSchema
     },
   });
   if (!idea) {
-    throw new Error('NOT_FOUND');
+    throw new ExpectedError('NOT_FOUND');
   }
   await ctx.prisma.idea.update({
     where: {

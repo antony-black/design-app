@@ -1,4 +1,5 @@
 import { zEditProfileTrpcSchema } from '../../../../../schemas/z-edit-user-profile-schema';
+import { ExpectedError } from '../../../../error';
 import { toClientMe } from '../../../../models';
 import { trpcLoggedProcedure } from '../../../../trpc';
 
@@ -15,7 +16,7 @@ export const editProfileTrpcRoute = trpcLoggedProcedure
         },
       });
       if (exUser) {
-        throw new Error('User with this nick already exists');
+        throw new ExpectedError('User with this nick already exists');
       }
     }
     const updatedMe = await appContext.prisma.user.update({

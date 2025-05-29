@@ -1,5 +1,6 @@
 import { trpcLoggedProcedure } from '../../../../../lib/trpc';
 import { zSetLikeTrpcSchema } from '../../../../../schemas/z-set-like-schema';
+import { ExpectedError } from '../../../../error';
 
 export const setLikeTrpcRoute = trpcLoggedProcedure
   .input(zSetLikeTrpcSchema)
@@ -7,7 +8,7 @@ export const setLikeTrpcRoute = trpcLoggedProcedure
     const { ideaId, isLikedByMe } = input;
 
     if (!appContext.me) {
-      throw Error('UNAUTHORIZED');
+      throw new ExpectedError('UNAUTHORIZED');
     }
 
     const idea = await appContext.prisma.idea.findUnique({
@@ -15,7 +16,7 @@ export const setLikeTrpcRoute = trpcLoggedProcedure
     });
 
     if (!idea) {
-      throw new Error('NOT_FOUND');
+      throw new ExpectedError('NOT_FOUND');
     }
 
     if (isLikedByMe) {
