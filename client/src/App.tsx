@@ -14,6 +14,7 @@ import {
 import { HelmetProvider } from 'react-helmet-async';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { AppContextProvider } from './lib/app-context';
+import { SentryUser } from './lib/sentry';
 import { TrpcProvider } from './lib/trpc';
 
 export const App = () => {
@@ -22,6 +23,7 @@ export const App = () => {
       <TrpcProvider>
         <AppContextProvider>
           <BrowserRouter>
+            <SentryUser />
             <NotAuthRouteTracker />
             <Routes>
               <Route path={routes.getSignOutRoute.definition} element={<SignOutPage />} />
