@@ -1,6 +1,6 @@
-@import '../../../styles/vars';
-@import '../../../styles/mixins';
+@use '../../../styles/_vars.scss' as vars;
+@use '../../../styles/_mixins.scss' as mixins;
 
 .title {
-  @include h1;
+  @include mixins.h1;
 }

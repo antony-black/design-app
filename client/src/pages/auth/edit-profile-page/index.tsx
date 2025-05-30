@@ -18,7 +18,6 @@ const General = ({ me }: { me: NonNullable<TtrpcRouterOutput['getMe']['me']> }) 
     onSubmit: async (values) => {
       const updatedMe = await updateProfile.mutateAsync(values);
       trpcUtils.getMe.setData(undefined, { me: updatedMe });
-      throw new Error('my error');
     },
     successMessage: 'Profile updated',
     resetOnSuccess: false,

@@ -1,4 +1,4 @@
-@import '../custom-input/index.module';
+@use '../custom-input/index.module' as input;
 
 .field {
   .input {

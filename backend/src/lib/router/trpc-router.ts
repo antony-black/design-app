@@ -1,4 +1,4 @@
-import { inferRouterInputs, inferRouterOutputs } from '@trpc/server';
+import type { inferRouterInputs, inferRouterOutputs } from '@trpc/server';
 import { createTrpcRouter } from '../trpc';
 import { addIdeaTrpcRoute, editIdeaTrpcRoute, getIdeasTrpcRoute, getSingleIdeaTrpcRoute } from './endpoints/ideas';
 import { blockIdeaTrpcRoute } from './endpoints/ideas/block-idea-trpc-route';

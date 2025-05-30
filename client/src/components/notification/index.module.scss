@@ -1,9 +1,9 @@
-@import '../../styles/_vars';
-@import '../../styles/_mixins';
+@use '../../styles/vars' as vars;
+@use '../../styles/mixins' as mixins;
 
 .notification {
   padding: 10px;
-  border-radius: $borderRadiusSmall;
+  border-radius: vars.$borderRadiusSmall;
 
   &.red {
     background-color: #ffffff;

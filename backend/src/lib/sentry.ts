@@ -2,7 +2,7 @@ import { RewriteFrames as RewriteFramesImport } from '@sentry/integrations';
 import * as Sentry from '@sentry/node';
 import * as path from 'path';
 import { env } from './env';
-import { TLoggerMetaData } from './logger';
+import type { TLoggerMetaData } from './logger';
 
 if (env.BACKEND_SENTRY_DSN) {
   Sentry.init({

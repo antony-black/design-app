@@ -1,14 +1,14 @@
 @use 'sass:color';
-@import '../../styles/_vars';
-@import '../../styles/_mixins';
+@use '../../styles/vars' as vars;
+@use '../../styles/mixins' as mixins;
 
 .btn {
   padding: 8px 15px;
-  color: $white;
+  color: vars.$white;
   background-color: #0a980a;
   border: none;
   font-weight: bold;
-  border-radius: $borderRadiusSmall;
+  border-radius: vars.$borderRadiusSmall;
   cursor: pointer;
   user-select: none;
   position: relative;
@@ -26,14 +26,14 @@
   }
 
   &.color-red {
-    background-color: $red;
+    background-color: vars.$red;
 
     &:hover {
-      background-color: color.scale($red, $lightness: 10%);
+      background-color: color.scale(vars.$red, $lightness: 10%);
     }
 
     &:active {
-      background-color: color.scale($red, $lightness: 30%);
+      background-color: color.scale(vars.$red, $lightness: 30%);
     }
   }
 
@@ -44,7 +44,7 @@
   }
 
   &.loading {
-    @include loader($borderWidth: 3px, $size: 20px, $color: $white);
+    @include mixins.loader($borderWidth: 3px, $size: 20px, $color: vars.$white);
 
     .text {
       opacity: 0;

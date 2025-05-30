@@ -1,5 +1,5 @@
-@import '../../styles/vars';
-@import '../../styles/mixins';
+@use '../../styles/vars' as vars;
+@use '../../styles/mixins' as mixins;
 
 .loader {
   &.type-page {
@@ -8,7 +8,7 @@
     width: 100%;
     min-height: inherit;
     height: 100%;
-    @include loader($borderWidth: 5px, $size: 60px, $color: $white);
+    @include mixins.loader($borderWidth: 5px, $size: 60px, $color: vars.$white);
   }
 
   &.type-section {
@@ -16,6 +16,6 @@
     display: block;
     height: 80px;
     width: 100%;
-    @include loader($borderWidth: 5px, $size: 60px, $color: $white);
+    @include mixins.loader($borderWidth: 5px, $size: 60px, $color: vars.$white);
   }
 }
