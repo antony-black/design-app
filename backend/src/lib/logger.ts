@@ -1,3 +1,5 @@
+import { TRPCError } from '@trpc/server';
+import debug from 'debug';
 import _ from 'lodash';
 import { EOL } from 'os';
 import pc from 'picocolors';
@@ -7,6 +9,8 @@ import winston from 'winston';
 import * as yaml from 'yaml';
 import { deepMap } from '../utils/deep-map';
 import { env } from './env';
+import { ExpectedError } from './error';
+import { sentryCaptureException } from './sentry';
 
 export const winstonLogger = winston.createLogger({
   level: 'debug',
@@ -59,9 +63,9 @@ export const winstonLogger = winston.createLogger({
   ],
 });
 
-type TMeta = Record<string, any> | undefined;
+export type TLoggerMetaData = Record<string, any> | undefined;
 
-const prettifyMeta = (meta: TMeta): TMeta => {
+const prettifyMeta = (meta: TLoggerMetaData): TLoggerMetaData => {
   return deepMap(meta, ({ key, value }) => {
     if (['email', 'password', 'newPassword', 'oldPassword', 'token', 'text', 'description'].includes(key)) {
       return '🙈';
@@ -72,22 +76,28 @@ const prettifyMeta = (meta: TMeta): TMeta => {
 };
 
 export const logger = {
-  info: (logType: string, message: string, meta?: TMeta) => {
-    // if (!debug.enabled(`design-app:${logType}`)) {
-    //   return;
-    // }
+  info: (logType: string, message: string, meta?: TLoggerMetaData) => {
+    if (!debug.enabled(`design-app:${logType}`)) {
+      return;
+    }
     winstonLogger.info(message, { logType, ...prettifyMeta(meta) });
   },
-  error: (logType: string, error: any, meta?: TMeta) => {
-    // if (!debug.enabled(`design-app:${logType}`)) {
-    //   return;
-    // }
+  error: (logType: string, error: any, meta?: TLoggerMetaData) => {
+    const isNativeExpectedError = error instanceof ExpectedError;
+    const isTrpcExpectedError = error instanceof TRPCError && error.cause instanceof ExpectedError;
+    const prettifiedMetaData = prettifyMeta(meta);
+    if (!isNativeExpectedError && !isTrpcExpectedError) {
+      sentryCaptureException(error, prettifiedMetaData);
+    }
+    if (!debug.enabled(`design-app:${logType}`)) {
+      return;
+    }
     const serializedError = serializeError(error);
     winstonLogger.error(serializedError.message || 'Unknown error', {
       logType,
       error,
       errorStack: serializedError.stack,
-      ...prettifyMeta(meta),
+      prettifiedMetaData,
     });
   },
 };
