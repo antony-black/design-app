@@ -41,7 +41,7 @@ void (async () => {
 
     // void sendWelcomeEmail({ user: { nick: 'test', email: `${Math.random().toString()}@example.com}` } });
     // void sendWelcomeEmail({ user: { nick: 'test', email: 'designapp79@gmail.com' } });
-    throw new Error('UNEXPECTED ERROR 2');
+    throw new Error('UNEXPECTED ERROR 10');
     // throw new ExpectedError('EXPECTED ERROR 1');
   } catch (error) {
     logger.error('app', error);
