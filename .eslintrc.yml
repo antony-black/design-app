@@ -1,6 +1,7 @@
 extends:
   - standard-with-typescript
   - prettier
+  - plugin:jest/recommended
 ignorePatterns:
   - node_modules
   - dist
