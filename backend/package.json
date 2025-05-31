@@ -5,7 +5,7 @@
   "scripts": {
     "start": "node ./dist/backend/src/index.js",
     "dev": "ts-node-dev --watch ./src/emails/dist,./.env --rs --exit-child ./src/index.ts",
-    "test": "jest",
+    "test": "jest --runInBand",
     "build-emails": "shx rm -rf ./src/emails/dist && shx mkdir -p ./src/emails/dist && mjml ./src/emails/*.mjml -o ./src/emails/dist",
     "watch-emails": "mjml -w ./src/emails/*.mjml -o ./src/emails/dist",
     "copy-emails": "copyfiles ./src/emails/dist/*.html ./dist/backend",
@@ -56,6 +56,7 @@
     "axios": "^1.9.0",
     "cors": "^2.8.5",
     "cron": "^4.3.0",
+    "date-fns": "^4.1.0",
     "debug": "^4.4.1",
     "dotenv": "^16.5.0",
     "eslint-plugin-node": "^11.1.0",

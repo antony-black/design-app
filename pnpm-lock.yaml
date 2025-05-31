@@ -101,6 +101,9 @@ importers:
       cron:
         specifier: ^4.3.0
         version: 4.3.0
+      date-fns:
+        specifier: ^4.1.0
+        version: 4.1.0
       debug:
         specifier: ^4.4.1
         version: 4.4.1
@@ -8857,7 +8860,7 @@ snapshots:
 
   builtins@5.1.0:
     dependencies:
-      semver: 7.7.1
+      semver: 7.7.2
 
   bytes@3.1.2: {}
 
@@ -9488,7 +9491,7 @@ snapshots:
   eslint-compat-utils@0.5.1(eslint@8.57.1):
     dependencies:
       eslint: 8.57.1
-      semver: 7.7.1
+      semver: 7.7.2
 
   eslint-config-prettier@10.1.5(eslint@8.57.1):
     dependencies:
@@ -9669,7 +9672,7 @@ snapshots:
       is-core-module: 2.16.1
       minimatch: 3.1.2
       resolve: 1.22.10
-      semver: 7.7.1
+      semver: 7.7.2
 
   eslint-plugin-node@11.1.0(eslint@8.57.1):
     dependencies:

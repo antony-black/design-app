@@ -4,15 +4,18 @@ import { type Express } from 'express';
 import { type TtrpcRouter } from '../lib/router/trpc-router';
 import { type ExpressRequest } from '../types';
 import { type AppContext } from './app-context';
-import { logger } from './logger';
 import { ExpectedError } from './error';
+import { logger } from './logger';
+
+export const getTrpcContext = ({ appContext, req }: { appContext: AppContext; req: ExpressRequest }) => ({
+  ...appContext,
+  me: req.user || null,
+});
 
 const createTrpcContext =
   (appContext: AppContext) =>
-  ({ req }: trpcExpress.CreateExpressContextOptions) => ({
-    ...appContext,
-    me: (req as ExpressRequest).user || null,
-  });
+  ({ req }: trpcExpress.CreateExpressContextOptions) =>
+    getTrpcContext({ appContext, req: req as ExpressRequest });
 
 type TtrpcContext = inferAsyncReturnType<ReturnType<typeof createTrpcContext>>;
 
