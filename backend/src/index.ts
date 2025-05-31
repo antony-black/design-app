@@ -8,6 +8,7 @@ import { applyPassportToExpressApp } from './lib/passport';
 import { trpcRouter } from './lib/router/trpc-router';
 import { applyTrpcToExpressApp } from './lib/trpc';
 import { presetDb } from './scripts/presetDb';
+// import { createUser } from './test/integration';
 
 void (async () => {
   let appContext: AppContext | null = null;
@@ -34,7 +35,7 @@ void (async () => {
       }
       res.status(500).send('Internal server error');
     });
-
+    // await createUser();
     expressApp.listen(env.PORT, () => {
       logger.info('express', `Listening at http://localhost:${env.PORT}`);
     });
