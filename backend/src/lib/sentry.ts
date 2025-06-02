@@ -4,7 +4,9 @@ import * as path from 'path';
 import { env } from './env';
 import type { TLoggerMetaData } from './logger';
 
-if (env.BACKEND_SENTRY_DSN) {
+const isSentryEnabled = env.BACKEND_SENTRY_DSN && env.NODE_ENV !== 'test';
+
+if (isSentryEnabled) {
   Sentry.init({
     dsn: env.BACKEND_SENTRY_DSN,
     environment: env.HOST_ENV,
@@ -19,7 +21,7 @@ if (env.BACKEND_SENTRY_DSN) {
 }
 
 export const sentryCaptureException = (error: Error, prettifiedMetaData?: TLoggerMetaData) => {
-  if (env.BACKEND_SENTRY_DSN) {
+  if (isSentryEnabled) {
     console.log('Set to Sentry');
     Sentry.captureException(error, prettifiedMetaData);
   }

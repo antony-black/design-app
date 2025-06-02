@@ -1,11 +1,16 @@
 import { type Idea, type User } from '@prisma/client';
 import _ from 'lodash';
 import { createAppContext } from '../lib/app-context';
+import { env } from '../lib/env';
 import { trpcRouter } from '../lib/router/trpc-router';
 import { getTrpcContext } from '../lib/trpc';
 import { ExpressRequest } from '../types';
 import { deepMap } from '../utils/deep-map';
 import { getPasswordHash } from '../utils/get-password-hash';
+
+if (env.NODE_ENV !== 'test') {
+  throw new Error('Run integration tests only with NODE_ENV=test');
+}
 
 export const appContext = createAppContext();
 
