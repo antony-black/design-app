@@ -11,6 +11,7 @@ import { deepMap } from '../utils/deep-map';
 import { env } from './env';
 import { ExpectedError } from './error';
 import { sentryCaptureException } from './sentry';
+import { TOmit } from '@design-app/shared/src/types/TOmit';
 
 export const winstonLogger = winston.createLogger({
   level: 'debug',
@@ -36,7 +37,7 @@ export const winstonLogger = winston.createLogger({
               const levelAndType = `${logData.level} ${logData.logType}`;
               const topMessage = `${setColor(levelAndType)} ${pc.green(logData.timestamp)}${EOL}${logData.message}`;
 
-              const visibleMessageTags = _.omit(logData, [
+              const visibleMessageTags = TOmit(logData, [
                 'level',
                 'logType',
                 'timestamp',

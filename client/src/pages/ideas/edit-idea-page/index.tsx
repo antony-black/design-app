@@ -6,7 +6,7 @@ import { trpc } from '@/lib/trpc';
 import type { TIdea } from '@/types/input-types';
 import { zEditIdeaTrpcSchema } from '@design-app/backend/src/schemas/z-edit-idea-schema';
 import { canEditIdea } from '@design-app/backend/src/utils/handle-permissions-idea';
-import pick from 'lodash/pick';
+import { TPick } from '@design-app/shared/src/types/TPick';
 import { useNavigate } from 'react-router-dom';
 
 export const EditIdeaPage = withPageWrapper({
@@ -29,7 +29,7 @@ export const EditIdeaPage = withPageWrapper({
   const navigate = useNavigate();
   const updateIdea = trpc.editIdea.useMutation();
   const { formik, buttonProps, notificationProps } = useForm({
-    initialValues: pick(idea, ['name', 'nick', 'description', 'text']),
+    initialValues: TPick(idea, ['name', 'nick', 'description', 'text']),
     validationSchema: zEditIdeaTrpcSchema.omit({ ideaId: true }),
     onSubmit: async (values) => {
       await updateIdea.mutateAsync({ ideaId: idea.id, ...values });

@@ -2,6 +2,7 @@ import _ from 'lodash';
 import { z } from 'zod';
 import { trpcLoggedProcedure } from '../../../../trpc';
 import { ExpectedError } from '../../../../error';
+import { TOmit } from '@design-app/shared/src/types/TOmit';
 
 export const getSingleIdeaTrpcRoute = trpcLoggedProcedure
   .input(
@@ -42,7 +43,7 @@ export const getSingleIdeaTrpcRoute = trpcLoggedProcedure
 
     const isLikedByMe = !!rawIdea?.likes.length;
     const likesCount = rawIdea?._count.likes || 0;
-    const idea = rawIdea && { ..._.omit(rawIdea, ['likes', '_count']), isLikedByMe, likesCount };
+    const idea = rawIdea && { ...TOmit(rawIdea, ['likes', '_count']), isLikedByMe, likesCount };
 
     return { idea };
   });

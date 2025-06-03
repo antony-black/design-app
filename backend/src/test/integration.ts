@@ -2,6 +2,7 @@ import '../lib/sentry.mock';
 import '../lib/emails/emails.utils.mock';
 import '../lib/brevo.mock';
 
+import { TOmit } from '@design-app/shared/src/types/TOmit';
 import { type Idea, type User } from '@prisma/client';
 import _ from 'lodash';
 import { createAppContext } from '../lib/app-context';
@@ -54,7 +55,7 @@ export const createUser = async ({ user = {}, number = 1 }: { user?: Partial<Use
       nick: `user${number}`,
       email: `user${number}@example.com`,
       password: getPasswordHash(user.password || '1234'),
-      ..._.omit(user, ['password']),
+      ...TOmit(user, ['password']),
     },
   });
 };

@@ -1,5 +1,5 @@
+import { TPick } from '@design-app/shared/src/types/TPick';
 import axios, { type AxiosResponse } from 'axios';
-import _ from 'lodash';
 import { env } from './env';
 
 const makeRequestToBrevo = async ({
@@ -34,7 +34,7 @@ const makeRequestToBrevo = async ({
   });
   return {
     originalResponse: response,
-    loggableResponse: _.pick(response, ['status', 'statusText', 'data']),
+    loggableResponse: TPick(response, ['status', 'statusText', 'data']),
   };
 };
 

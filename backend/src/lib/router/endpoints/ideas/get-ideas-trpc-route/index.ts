@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import { zGetIdeasTrpcSchema } from '../../../../../schemas/z-get-ideas-schema';
 import { trpcLoggedProcedure } from '../../../../trpc';
+import { TOmit } from '@design-app/shared/src/types/TOmit';
 
 export const getIdeasTrpcRoute = trpcLoggedProcedure
   .input(zGetIdeasTrpcSchema)
@@ -54,7 +55,7 @@ export const getIdeasTrpcRoute = trpcLoggedProcedure
 
     const rawIdeasExceptNext = rawIdeas.slice(0, input.limit);
     const ideasExceptNext = rawIdeasExceptNext.map((idea) => ({
-      ..._.omit(idea, ['_count']),
+      ...TOmit(idea, ['_count']),
       likesCount: idea._count.likes,
     }));
 
