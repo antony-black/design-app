@@ -1,6 +1,6 @@
 import { zBlockIdeaTrpcSchema } from '../../../../../schemas/z-blocked-idea-chema';
 import { canBlockIdeas } from '../../../../../utils/handle-permissions-idea';
-import { sendIdeaBlockedEmail } from '../../../../emails-service';
+import { sendIdeaBlockedEmail } from '../../../../emails/emails-services';
 import { ExpectedError } from '../../../../error';
 import { trpcLoggedProcedure } from '../../../../trpc';
 

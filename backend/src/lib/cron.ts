@@ -8,7 +8,7 @@ export const applyCron = (appContext: AppContext) => {
   new CronJob(
     '0 10 1 * *', // At 10:00 on day-of-month 1
     () => {
-      getMostLikedIdeas(appContext).catch((error) => {
+      getMostLikedIdeas({ appContext }).catch((error) => {
         logger.error('cron', error);
       });
     },

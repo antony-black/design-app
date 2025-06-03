@@ -6,6 +6,7 @@ import { env } from './lib/env';
 import { logger } from './lib/logger';
 import { applyPassportToExpressApp } from './lib/passport';
 import { trpcRouter } from './lib/router/trpc-router';
+import { initSentry } from './lib/sentry';
 import { applyTrpcToExpressApp } from './lib/trpc';
 import { presetDb } from './scripts/presetDb';
 // import { createUser } from './test/integration';
@@ -13,6 +14,7 @@ import { presetDb } from './scripts/presetDb';
 void (async () => {
   let appContext: AppContext | null = null;
   try {
+    initSentry();
     appContext = createAppContext();
     await presetDb(appContext);
     const expressApp = express();

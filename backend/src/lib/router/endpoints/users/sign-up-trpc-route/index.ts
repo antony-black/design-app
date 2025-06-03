@@ -1,7 +1,7 @@
 import { zSignUpScheme } from '../../../../../schemas/z-sign-up-schema';
 import { getPasswordHash } from '../../../../../utils/get-password-hash';
 import { signJWT } from '../../../../../utils/sign-jwt';
-import { sendWelcomeEmail } from '../../../../emails-service';
+import { sendWelcomeEmail } from '../../../../emails/emails-services';
 import { ExpectedError } from '../../../../error';
 import { trpcLoggedProcedure } from '../../../../trpc';
 
