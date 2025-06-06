@@ -42,21 +42,14 @@ export const getCloudinaryUploadUrl = <TTypeName extends TCloudinaryUploadTypeNa
 ) => {
   const type = cloudinaryUploadTypes[typeName] as TCloudinaryUploadType;
   const preset = type.presets[presetName as string];
-  // console.error('AVATAR-0:', `${cloudinaryUrl}/${preset}/${publicId}`);
-  // console.error('AVATAR-1:', `${cloudinaryUrl}/`);
-  // console.error('AVATAR-2:', `${preset}/`);
-  // console.error('AVATAR-3:', `${publicId}`);
+
   return `${cloudinaryUrl}/${preset}/${publicId}`;
 };
 
 export const getAvatarUrl = (
   publicId: string | null | undefined,
   preset: keyof TCloudinaryUploadTypes['avatar']['presets'],
-) => {
-  if (publicId) {
-    console.error('publicId:', publicId);
-  }
-  return publicId
+) =>
+  publicId
     ? getCloudinaryUploadUrl(publicId, 'avatar', preset)
-    : getCloudinaryUploadUrl('v1695811282/avatar-placeholder.png', 'avatar', preset);
-};
+    : getCloudinaryUploadUrl('v1749205680/avatars/avatar-placeholder.png', 'avatar', preset);
