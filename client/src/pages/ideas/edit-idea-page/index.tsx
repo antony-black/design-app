@@ -1,4 +1,13 @@
-import { CustomButton, CustomInput, CustomTextArea, FormItems, Notification, Segment, useForm } from '@/components';
+import {
+  CustomButton,
+  CustomInput,
+  CustomTextArea,
+  FormItems,
+  Notification,
+  Segment,
+  UploadManyImagesToCloudinary,
+  useForm,
+} from '@/components';
 import { withPageWrapper } from '@/lib/page-wrapper';
 import * as routes from '@/lib/routes';
 import { getEditIdeaRoute } from '@/lib/routes';
@@ -29,7 +38,7 @@ export const EditIdeaPage = withPageWrapper({
   const navigate = useNavigate();
   const updateIdea = trpc.editIdea.useMutation();
   const { formik, buttonProps, notificationProps } = useForm({
-    initialValues: TPick(idea, ['name', 'nick', 'description', 'text']),
+    initialValues: TPick(idea, ['name', 'nick', 'description', 'text', 'images']),
     validationSchema: zEditIdeaTrpcSchema.omit({ ideaId: true }),
     onSubmit: async (values) => {
       await updateIdea.mutateAsync({ ideaId: idea.id, ...values });
@@ -47,6 +56,7 @@ export const EditIdeaPage = withPageWrapper({
           <CustomInput<TIdea> label="Nick" name="nick" formik={formik} />
           <CustomInput<TIdea> label="Description" name="description" maxWidth={500} formik={formik} />
           <CustomTextArea<TIdea> label="Text" name="text" formik={formik} />
+          <UploadManyImagesToCloudinary label="Images" name="images" type="image" preset="preview" formik={formik} />
           <Notification {...notificationProps} />
           <CustomButton {...buttonProps}>Update Idea</CustomButton>
         </FormItems>

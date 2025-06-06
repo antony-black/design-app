@@ -6,8 +6,9 @@ import { getEditIdeaRoute, getSingleIdeaRoute } from '@/lib/routes';
 import { trpc } from '@/lib/trpc';
 import type { TtrpcRouterOutput } from '@design-app/backend/src/lib/router/trpc-router';
 import { canBlockIdeas, canEditIdea } from '@design-app/backend/src/utils/handle-permissions-idea';
-import { getAvatarUrl } from '@design-app/shared/src/types/cloudinary-types';
+import { getAvatarUrl, getCloudinaryUploadUrl } from '@design-app/shared/src/types/cloudinary-types';
 import { format } from 'date-fns';
+import ImageGallery from 'react-image-gallery';
 import styles from './index.module.scss';
 
 const BlockIdea = ({ idea }: { idea: NonNullable<TtrpcRouterOutput['getSingleIdea']['idea']> }) => {
@@ -91,6 +92,18 @@ export const IdeaPage: React.FC = withPageWrapper({
         {idea.author.name ? ` (${idea.author.name})` : ''}
       </div>
     </div>
+    {!!idea.images.length && (
+      <div className={styles.gallery}>
+        <ImageGallery
+          showPlayButton={false}
+          showFullscreenButton={false}
+          items={idea.images.map((image) => ({
+            original: getCloudinaryUploadUrl(image, 'image', 'large'),
+            thumbnail: getCloudinaryUploadUrl(image, 'image', 'preview'),
+          }))}
+        />
+      </div>
+    )}
     <div className={styles.text} dangerouslySetInnerHTML={{ __html: idea.text }} />
     <div className={styles.likes}>
       Likes: {idea.likesCount}

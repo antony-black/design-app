@@ -1,6 +1,10 @@
 @use '../../../styles/vars' as vars;
 @use '../../../styles/mixins' as mixins;
 
+.gallery {
+  margin: 10px 0;
+}
+
 .text {
   font-size: 14px;
 }

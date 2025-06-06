@@ -42,10 +42,10 @@ export const getCloudinaryUploadUrl = <TTypeName extends TCloudinaryUploadTypeNa
 ) => {
   const type = cloudinaryUploadTypes[typeName] as TCloudinaryUploadType;
   const preset = type.presets[presetName as string];
-  console.error('AVATAR-0:', `${cloudinaryUrl}/${preset}/${publicId}`);
-  console.error('AVATAR-1:', `${cloudinaryUrl}/`);
-  console.error('AVATAR-2:', `${preset}/`);
-  console.error('AVATAR-3:', `${publicId}`);
+  // console.error('AVATAR-0:', `${cloudinaryUrl}/${preset}/${publicId}`);
+  // console.error('AVATAR-1:', `${cloudinaryUrl}/`);
+  // console.error('AVATAR-2:', `${preset}/`);
+  // console.error('AVATAR-3:', `${publicId}`);
   return `${cloudinaryUrl}/${preset}/${publicId}`;
 };
 

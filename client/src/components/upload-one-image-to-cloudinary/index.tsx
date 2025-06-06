@@ -5,17 +5,29 @@ import {
 } from '@design-app/shared/src/types/cloudinary-types';
 import cn from 'classnames';
 import { type FormikProps } from 'formik';
-import { useRef, useState } from 'react';
+import memoize from 'lodash/memoize';
+import { useCallback, useRef, useState } from 'react';
 import { trpc } from '../../lib/trpc';
 import { CustomButton, CustomButtons } from '../custom-button';
 import styles from './index.module.scss';
 
-const useUploadToCloudinary = (type: TCloudinaryUploadTypeName) => {
+export const useUploadToCloudinary = (type: TCloudinaryUploadTypeName) => {
   const prepareCloudinaryUpload = trpc.prepareCloudinaryUpload.useMutation();
 
-  const uploadToCloudinary = async (file: File) => {
-    const { preparedData } = await prepareCloudinaryUpload.mutateAsync({ type });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const getPreparedData = useCallback(
+    memoize(
+      async () => {
+        const { preparedData } = await prepareCloudinaryUpload.mutateAsync({ type });
+        return preparedData;
+      },
+      () => JSON.stringify({ type, minutes: new Date().getMinutes() }),
+    ),
+    [type],
+  );
 
+  const uploadToCloudinary = async (file: File) => {
+    const preparedData = await getPreparedData();
     const formData = new FormData();
     formData.append('file', file);
     formData.append('timestamp', preparedData.timestamp);
@@ -46,7 +58,7 @@ const useUploadToCloudinary = (type: TCloudinaryUploadTypeName) => {
   return { uploadToCloudinary };
 };
 
-export const UploadToCloudinary = <TTypeName extends TCloudinaryUploadTypeName>({
+export const UploadOneImageToCloudinary = <TTypeName extends TCloudinaryUploadTypeName>({
   label,
   name,
   formik,

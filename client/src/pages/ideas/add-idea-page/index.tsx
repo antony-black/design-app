@@ -1,4 +1,13 @@
-import { CustomButton, CustomInput, CustomTextArea, FormItems, Notification, Segment, useForm } from '@/components';
+import {
+  CustomButton,
+  CustomInput,
+  CustomTextArea,
+  FormItems,
+  Notification,
+  Segment,
+  UploadManyImagesToCloudinary,
+  useForm,
+} from '@/components';
 import { withPageWrapper } from '@/lib/page-wrapper';
 import { trpc } from '@/lib/trpc';
 import { zValidationScheme } from '@design-app/backend/src/schemas/z-validation-schema';
@@ -14,6 +23,7 @@ export const AddIdeaPage: React.FC = withPageWrapper({
       nick: '',
       description: '',
       text: '',
+      images: [],
     },
     validationSchema: zValidationScheme,
     onSubmit: async (values) => {
@@ -40,6 +50,7 @@ export const AddIdeaPage: React.FC = withPageWrapper({
           <CustomInput name="nick" label="Nick" formik={formik} disabled={isSubmitting} />
           <CustomInput name="description" label="Description" formik={formik} disabled={isSubmitting} maxWidth={500} />
           <CustomTextArea name="text" label="Text" formik={formik} disabled={isSubmitting} />
+          <UploadManyImagesToCloudinary label="Images" name="images" type="image" preset="preview" formik={formik} />
           <Notification {...notificationProps} />
           <CustomButton {...buttonProps}>Create Idea</CustomButton>
         </FormItems>
