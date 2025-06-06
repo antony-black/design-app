@@ -9,3 +9,4 @@ export * from './loader';
 export * from './not-auth-route-tracker';
 export * from './notification';
 export * from './segment';
+export * from './upload-to-cloudinary';

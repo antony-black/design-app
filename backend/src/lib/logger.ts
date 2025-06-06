@@ -1,3 +1,4 @@
+import { TOmit } from '@design-app/shared/src/types/TOmit';
 import { TRPCError } from '@trpc/server';
 import debug from 'debug';
 import _ from 'lodash';
@@ -11,7 +12,6 @@ import { deepMap } from '../utils/deep-map';
 import { env } from './env';
 import { ExpectedError } from './error';
 import { sentryCaptureException } from './sentry';
-import { TOmit } from '@design-app/shared/src/types/TOmit';
 
 export const winstonLogger = winston.createLogger({
   level: 'debug',
@@ -68,7 +68,19 @@ export type TLoggerMetaData = Record<string, any> | undefined;
 
 const prettifyMeta = (meta: TLoggerMetaData): TLoggerMetaData => {
   return deepMap(meta, ({ key, value }) => {
-    if (['email', 'password', 'newPassword', 'oldPassword', 'token', 'text', 'description'].includes(key)) {
+    if (
+      [
+        'email',
+        'password',
+        'newPassword',
+        'oldPassword',
+        'token',
+        'text',
+        'description',
+        'apiKey',
+        'signature',
+      ].includes(key)
+    ) {
       return '🙈';
     }
 

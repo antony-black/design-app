@@ -1,4 +1,4 @@
-import { CustomButton, CustomInput, FormItems, Notification, Segment, useForm } from '@/components';
+import { CustomButton, CustomInput, FormItems, Notification, Segment, UploadToCloudinary, useForm } from '@/components';
 import { withPageWrapper } from '@/lib/page-wrapper';
 import { trpc } from '@/lib/trpc';
 import type { TtrpcRouterOutput } from '@design-app/backend/src/lib/router/trpc-router';
@@ -13,6 +13,7 @@ const General = ({ me }: { me: NonNullable<TtrpcRouterOutput['getMe']['me']> }) 
     initialValues: {
       nick: me.nick,
       name: me.name,
+      avatar: me.avatar,
     },
     validationSchema: zEditProfileTrpcSchema,
     onSubmit: async (values) => {
@@ -28,6 +29,7 @@ const General = ({ me }: { me: NonNullable<TtrpcRouterOutput['getMe']['me']> }) 
       <FormItems>
         <CustomInput label="Nick" name="nick" formik={formik} />
         <CustomInput label="Name" name="name" formik={formik} />
+        <UploadToCloudinary label="Avatar" name="avatar" type="avatar" preset="big" formik={formik} />
         <Notification {...notificationProps} />
         <CustomButton {...buttonProps}>Update Profile</CustomButton>
       </FormItems>

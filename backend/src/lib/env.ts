@@ -55,6 +55,9 @@ const zEnv = z.object({
     ),
   BACKEND_SENTRY_DSN: zNonEmptyTrimmedRequiredOnNotLocal,
   SOURCE_VERSION: zNonEmptyTrimmedRequiredOnNotLocal,
+  CLOUDINARY_API_KEY: zNonEmptyTrimmedRequiredOnNotLocal,
+  CLOUDINARY_API_SECRET: zNonEmptyTrimmedRequiredOnNotLocal,
+  CLOUDINARY_CLOUD_NAME: zNonEmptyTrimmed,
 });
 
 // eslint-disable-next-line node/no-process-env

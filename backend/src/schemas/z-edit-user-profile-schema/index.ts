@@ -6,4 +6,5 @@ export const zEditProfileTrpcSchema = z.object({
     .min(1)
     .regex(/^[a-zA-Z0-9-]+$/, 'Nick may contain only letters, numbers and dashes'),
   name: z.string().max(50).default(''),
+  avatar: z.string().nullable(),
 });

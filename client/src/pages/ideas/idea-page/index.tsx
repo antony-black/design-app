@@ -6,6 +6,7 @@ import { getEditIdeaRoute, getSingleIdeaRoute } from '@/lib/routes';
 import { trpc } from '@/lib/trpc';
 import type { TtrpcRouterOutput } from '@design-app/backend/src/lib/router/trpc-router';
 import { canBlockIdeas, canEditIdea } from '@design-app/backend/src/utils/handle-permissions-idea';
+import { getAvatarUrl } from '@design-app/shared/src/types/cloudinary-types';
 import { format } from 'date-fns';
 import styles from './index.module.scss';
 
@@ -82,8 +83,13 @@ export const IdeaPage: React.FC = withPageWrapper({
   <Segment title={idea.name} description={idea.description}>
     <div className={styles.createdAt}>Created At: {format(idea.createdAt, 'yyyy-MM-dd')}</div>
     <div className={styles.author}>
-      Author: {idea.author.nick}
-      {idea.author.name ? ` (${idea.author.name})` : ''}
+      <img className={styles.avatar} alt="" src={getAvatarUrl(idea.author.avatar, 'small')} />
+      <div className={styles.name}>
+        Author:
+        <br />
+        {idea.author.nick}
+        {idea.author.name ? ` (${idea.author.name})` : ''}
+      </div>
     </div>
     <div className={styles.text} dangerouslySetInnerHTML={{ __html: idea.text }} />
     <div className={styles.likes}>

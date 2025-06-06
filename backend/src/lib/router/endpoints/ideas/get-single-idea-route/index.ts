@@ -1,8 +1,7 @@
-import _ from 'lodash';
-import { z } from 'zod';
-import { trpcLoggedProcedure } from '../../../../trpc';
-import { ExpectedError } from '../../../../error';
 import { TOmit } from '@design-app/shared/src/types/TOmit';
+import { z } from 'zod';
+import { ExpectedError } from '../../../../error';
+import { trpcLoggedProcedure } from '../../../../trpc';
 
 export const getSingleIdeaTrpcRoute = trpcLoggedProcedure
   .input(
@@ -19,6 +18,7 @@ export const getSingleIdeaTrpcRoute = trpcLoggedProcedure
             id: true,
             nick: true,
             name: true,
+            avatar: true,
           },
         },
         likes: {
