@@ -1,5 +1,6 @@
 import { CustomButton, CustomInput, FormItems, Notification, Segment } from '@/components';
 import { useForm } from '@/components/custom-form';
+import { mixpanelAlias, mixpanelTrackSignUp } from '@/lib/mixpanel';
 import { withPageWrapper } from '@/lib/page-wrapper';
 import { trpc } from '@/lib/trpc';
 import { zSignUpScheme } from '@design-app/backend/src/schemas/z-sign-up-schema';
@@ -33,7 +34,9 @@ export const SignUpPage: React.FC = withPageWrapper({
         }
       }),
     onSubmit: async (values) => {
-      const { token } = await signUp.mutateAsync(values);
+      const { token, userId } = await signUp.mutateAsync(values);
+      mixpanelAlias(userId);
+      mixpanelTrackSignUp();
       Cookies.set('token', token, { expires: 99999 });
       void trpcUtils.invalidate();
     },

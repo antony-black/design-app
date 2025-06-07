@@ -1,6 +1,7 @@
 import { CustomButton, FormItems, Notification, Segment, useForm } from '@/components';
 import { Icon } from '@/components/icon';
 import { LinkButton } from '@/components/link-button';
+import { mixpanelSetLike } from '@/lib/mixpanel';
 import { withPageWrapper } from '@/lib/page-wrapper';
 import { getEditIdeaRoute, getSingleIdeaRoute } from '@/lib/routes';
 import { trpc } from '@/lib/trpc';
@@ -36,7 +37,7 @@ const BlockIdea = ({ idea }: { idea: NonNullable<TtrpcRouterOutput['getSingleIde
 
 const LikeButton = ({ idea }: { idea: NonNullable<TtrpcRouterOutput['getSingleIdea']['idea']> }) => {
   const trpcUtils = trpc.useContext();
-  const setIdeaLike = trpc.setLike.useMutation({
+  const setLike = trpc.setLike.useMutation({
     onMutate: ({ isLikedByMe }) => {
       const oldGetIdeaData = trpcUtils.getSingleIdea.getData({ nick: idea.nick });
       if (oldGetIdeaData?.idea) {
@@ -59,7 +60,13 @@ const LikeButton = ({ idea }: { idea: NonNullable<TtrpcRouterOutput['getSingleId
     <button
       className={styles.likeButton}
       onClick={() => {
-        void setIdeaLike.mutateAsync({ ideaId: idea.id, isLikedByMe: !idea.isLikedByMe });
+        void setLike
+          .mutateAsync({ ideaId: idea.id, isLikedByMe: !idea.isLikedByMe })
+          .then(({ idea: { isLikedByMe } }) => {
+            if (isLikedByMe) {
+              mixpanelSetLike(idea);
+            }
+          });
       }}
     >
       <Icon size={32} className={styles.likeIcon} name={idea.isLikedByMe ? 'likeFilled' : 'likeEmpty'} />

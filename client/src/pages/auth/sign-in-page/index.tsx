@@ -1,5 +1,6 @@
 import { CustomButton, CustomInput, FormItems, Notification, Segment } from '@/components';
 import { useForm } from '@/components/custom-form';
+import { mixpanelIdentify, mixpanelTrackSignIn } from '@/lib/mixpanel';
 import { withPageWrapper } from '@/lib/page-wrapper';
 import { trpc } from '@/lib/trpc';
 import { zSignInScheme } from '@design-app/backend/src/schemas/z-sign-in-schema';
@@ -18,7 +19,9 @@ export const SignInPage: React.FC = withPageWrapper({
     },
     validationSchema: zSignInScheme,
     onSubmit: async (values) => {
-      const { token } = await singIn.mutateAsync(values);
+      const { token, userId } = await singIn.mutateAsync(values);
+      mixpanelIdentify(userId);
+      mixpanelTrackSignIn();
       Cookies.set('token', token, { expires: 99999 });
       void trpcUtils.invalidate();
     },
