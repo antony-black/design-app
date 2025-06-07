@@ -79,6 +79,7 @@ const prettifyMeta = (meta: TLoggerMetaData): TLoggerMetaData => {
         'description',
         'apiKey',
         'signature',
+        'signedUrl',
       ].includes(key)
     ) {
       return '🙈';

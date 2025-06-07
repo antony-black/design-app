@@ -5,6 +5,14 @@
   margin: 10px 0;
 }
 
+.certificate {
+  margin: 10px 0;
+
+  .certificateLink {
+    @include link;
+  }
+}
+
 .text {
   font-size: 14px;
 }

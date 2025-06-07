@@ -39,6 +39,7 @@
     "@types/node": "^22.15.17",
     "@types/passport": "^1.0.17",
     "@types/passport-jwt": "^4.0.1",
+    "@types/randomstring": "^1.3.0",
     "@types/triple-beam": "^1.3.5",
     "dotenv-cli": "^8.0.0",
     "prisma": "^6.7.0",
@@ -48,6 +49,8 @@
     "schema": "./src/prisma/schema.prisma"
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.826.0",
+    "@aws-sdk/s3-request-presigner": "^3.826.0",
     "@design-app/client": "workspace:*",
     "@design-app/shared": "workspace:*",
     "@prisma/client": "^6.7.0",
@@ -71,6 +74,7 @@
     "passport": "^0.7.0",
     "passport-jwt": "^4.0.1",
     "picocolors": "^1.1.1",
+    "randomstring": "^1.3.1",
     "react-router-dom": "^7.6.0",
     "serialize-error": "8.1.0",
     "triple-beam": "^1.4.1",

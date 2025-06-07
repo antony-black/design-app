@@ -6,6 +6,7 @@ import {
   Notification,
   Segment,
   UploadManyImagesToCloudinary,
+  UploadOneFileToS3,
   useForm,
 } from '@/components';
 import { withPageWrapper } from '@/lib/page-wrapper';
@@ -24,6 +25,7 @@ export const AddIdeaPage: React.FC = withPageWrapper({
       description: '',
       text: '',
       images: [],
+      certificate: '',
     },
     validationSchema: zValidationScheme,
     onSubmit: async (values) => {
@@ -51,6 +53,7 @@ export const AddIdeaPage: React.FC = withPageWrapper({
           <CustomInput name="description" label="Description" formik={formik} disabled={isSubmitting} maxWidth={500} />
           <CustomTextArea name="text" label="Text" formik={formik} disabled={isSubmitting} />
           <UploadManyImagesToCloudinary label="Images" name="images" type="image" preset="preview" formik={formik} />
+          <UploadOneFileToS3 label="Certificate" name="certificate" formik={formik} />
           <Notification {...notificationProps} />
           <CustomButton {...buttonProps}>Create Idea</CustomButton>
         </FormItems>

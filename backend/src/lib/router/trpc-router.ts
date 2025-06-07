@@ -4,6 +4,7 @@ import { addIdeaTrpcRoute, editIdeaTrpcRoute, getIdeasTrpcRoute, getSingleIdeaTr
 import { blockIdeaTrpcRoute } from './endpoints/ideas/block-idea-trpc-route';
 import { setLikeTrpcRoute } from './endpoints/ideas/set-like-tprc-route';
 import { prepareCloudinaryUploadTrpcRoute } from './endpoints/upload/prepare-cloudinary-upload-trpc-route';
+import { prepareS3UploadTrpcRoute } from './endpoints/upload/prepare-S3-upload';
 import { editPasswordTrpcRoute, getMeTrpcRoute, signInTrpcRoute, signUpTrpcRoute } from './endpoints/users';
 import { editProfileTrpcRoute } from './endpoints/users/edit-user-profile-trpc-route';
 
@@ -20,6 +21,7 @@ export const trpcRouter = createTrpcRouter({
   setLike: setLikeTrpcRoute,
   blockIdea: blockIdeaTrpcRoute,
   prepareCloudinaryUpload: prepareCloudinaryUploadTrpcRoute,
+  prepareS3Upload: prepareS3UploadTrpcRoute,
 });
 
 export type TtrpcRouter = typeof trpcRouter;

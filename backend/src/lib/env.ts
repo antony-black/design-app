@@ -58,6 +58,11 @@ const zEnv = z.object({
   CLOUDINARY_API_KEY: zNonEmptyTrimmedRequiredOnNotLocal,
   CLOUDINARY_API_SECRET: zNonEmptyTrimmedRequiredOnNotLocal,
   CLOUDINARY_CLOUD_NAME: zNonEmptyTrimmed,
+  S3_ACCESS_KEY_ID: zNonEmptyTrimmedRequiredOnNotLocal,
+  S3_SECRET_ACCESS_KEY: zNonEmptyTrimmedRequiredOnNotLocal,
+  S3_BUCKET_NAME: zNonEmptyTrimmedRequiredOnNotLocal,
+  S3_REGION: zNonEmptyTrimmedRequiredOnNotLocal,
+  S3_URL: zNonEmptyTrimmed,
 });
 
 // eslint-disable-next-line node/no-process-env

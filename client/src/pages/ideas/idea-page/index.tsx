@@ -6,6 +6,7 @@ import { getEditIdeaRoute, getSingleIdeaRoute } from '@/lib/routes';
 import { trpc } from '@/lib/trpc';
 import type { TtrpcRouterOutput } from '@design-app/backend/src/lib/router/trpc-router';
 import { canBlockIdeas, canEditIdea } from '@design-app/backend/src/utils/handle-permissions-idea';
+import { getS3UploadName, getS3UploadUrl } from '@design-app/shared/src/s3';
 import { getAvatarUrl, getCloudinaryUploadUrl } from '@design-app/shared/src/types/cloudinary-types';
 import { format } from 'date-fns';
 import ImageGallery from 'react-image-gallery';
@@ -102,6 +103,14 @@ export const IdeaPage: React.FC = withPageWrapper({
             thumbnail: getCloudinaryUploadUrl(image, 'image', 'preview'),
           }))}
         />
+      </div>
+    )}
+    {idea.certificate && (
+      <div className={styles.certificate}>
+        Certificate:{' '}
+        <a className={styles.certificateLink} target="_blank" href={getS3UploadUrl(idea.certificate)} rel="noreferrer">
+          {getS3UploadName(idea.certificate)}
+        </a>
       </div>
     )}
     <div className={styles.text} dangerouslySetInnerHTML={{ __html: idea.text }} />
