@@ -9,7 +9,15 @@
   margin: 10px 0;
 
   .certificateLink {
-    @include link;
+    @include mixins.link;
+  }
+}
+
+.documents {
+  margin: 10px 0;
+
+  .documentLink {
+    @include mixins.link;
   }
 }
 

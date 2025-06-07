@@ -1,3 +1,5 @@
+@use '../../styles/vars' as vars;
+@use '../../styles/mixins' as mixins;
 @import '../custom-input/index.module.scss';
 
 .field {
@@ -10,7 +12,7 @@
 
     .upload {
       .uploadLink {
-        @include link;
+        @include mixins.link;
       }
     }
   }

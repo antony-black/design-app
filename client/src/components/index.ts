@@ -9,6 +9,7 @@ export * from './loader';
 export * from './not-auth-route-tracker';
 export * from './notification';
 export * from './segment';
+export * from './upload-many-files-to-S3';
 export * from './upload-many-images-to-cloudinary';
 export * from './upload-one-file-to-S3';
 export * from './upload-one-image-to-cloudinary';

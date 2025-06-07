@@ -7,6 +7,7 @@ import {
   Segment,
   UploadManyImagesToCloudinary,
   UploadOneFileToS3,
+  UploadsManyFilesToS3,
   useForm,
 } from '@/components';
 import { withPageWrapper } from '@/lib/page-wrapper';
@@ -54,6 +55,7 @@ export const AddIdeaPage: React.FC = withPageWrapper({
           <CustomTextArea name="text" label="Text" formik={formik} disabled={isSubmitting} />
           <UploadManyImagesToCloudinary label="Images" name="images" type="image" preset="preview" formik={formik} />
           <UploadOneFileToS3 label="Certificate" name="certificate" formik={formik} />
+          <UploadsManyFilesToS3 label="Documents" name="documents" formik={formik} />
           <Notification {...notificationProps} />
           <CustomButton {...buttonProps}>Create Idea</CustomButton>
         </FormItems>
