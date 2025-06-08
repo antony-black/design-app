@@ -7,6 +7,7 @@ import { logger } from './lib/logger';
 import { applyPassportToExpressApp } from './lib/passport';
 import { trpcRouter } from './lib/router/trpc-router';
 import { initSentry } from './lib/sentry';
+import { applyServeClient } from './lib/server-client';
 import { applyTrpcToExpressApp } from './lib/trpc';
 import { presetDb } from './scripts/presetDb';
 // import { createUser } from './test/integration';
@@ -25,6 +26,7 @@ void (async () => {
 
     applyPassportToExpressApp(expressApp, appContext);
     applyTrpcToExpressApp(expressApp, appContext, trpcRouter);
+    await applyServeClient(expressApp);
 
     //send emails automaticaly by schedule
     applyCron(appContext);

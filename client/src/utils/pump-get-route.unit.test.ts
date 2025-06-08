@@ -1,5 +1,5 @@
 // eslint-disable-next-line node/no-process-env
-process.env.WEBAPP_URL = 'https://example.com';
+process.env.CLIENT_URL = 'https://example.com';
 
 // eslint-disable-next-line import/first
 import { pgr } from './pump-get-route';

@@ -1,6 +1,6 @@
 @use '../../styles/vars' as vars;
 @use '../../styles/mixins' as mixins;
-@import '../upload-one-file-to-S3/index.module.scss';
+@use '../upload-one-file-to-S3/index.module.scss';
 
 .field {
   .uploads {
