@@ -1,3 +1,4 @@
+import { env } from './env';
 import { TOmit } from '@design-app/shared/src/types/TOmit';
 import { TRPCError } from '@trpc/server';
 import debug from 'debug';
@@ -9,7 +10,6 @@ import { MESSAGE } from 'triple-beam';
 import winston from 'winston';
 import * as yaml from 'yaml';
 import { deepMap } from '../utils/deep-map';
-import { env } from './env';
 import { ExpectedError } from './error';
 import { sentryCaptureException } from './sentry';
 
@@ -103,9 +103,9 @@ export const logger = {
     if (!isNativeExpectedError && !isTrpcExpectedError) {
       sentryCaptureException(error, prettifiedMetaData);
     }
-    if (!debug.enabled(`design-app:${logType}`)) {
-      return;
-    }
+    // if (!debug.enabled(`design-app:${logType}`)) {
+    //   return;
+    // }
     const serializedError = serializeError(error);
     winstonLogger.error(serializedError.message || 'Unknown error', {
       logType,

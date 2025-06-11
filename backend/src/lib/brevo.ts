@@ -1,6 +1,6 @@
+import { env } from './env';
 import { TPick } from '@design-app/shared/src/types/TPick';
 import axios, { type AxiosResponse } from 'axios';
-import { env } from './env';
 
 const makeRequestToBrevo = async ({
   path,

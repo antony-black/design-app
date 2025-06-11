@@ -7,9 +7,9 @@ import { logger } from './lib/logger';
 import { applyPassportToExpressApp } from './lib/passport';
 import { trpcRouter } from './lib/router/trpc-router';
 import { initSentry } from './lib/sentry';
-import { applyServeClient } from './lib/server-client';
 import { applyTrpcToExpressApp } from './lib/trpc';
 import { presetDb } from './scripts/presetDb';
+import { applyServeClient } from './lib/server-client';
 // import { createUser } from './test/integration';
 
 void (async () => {
@@ -20,9 +20,9 @@ void (async () => {
     await presetDb(appContext);
     const expressApp = express();
     expressApp.use(cors());
-    expressApp.get('/ping', (req, res) => {
-      res.send('pong');
-    });
+    // expressApp.get('/ping', (req, res) => {
+    //   res.send('pong');
+    // });
 
     applyPassportToExpressApp(expressApp, appContext);
     applyTrpcToExpressApp(expressApp, appContext, trpcRouter);

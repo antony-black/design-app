@@ -1,7 +1,7 @@
+import { env } from './env';
 import * as Sentry from '@sentry/react';
 import { useEffect } from 'react';
 import { useMe } from './app-context';
-import { env } from './env';
 
 if (env.VITE_WEBAPP_SENTRY_DSN) {
   Sentry.init({

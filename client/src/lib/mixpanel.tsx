@@ -1,8 +1,8 @@
+import { env } from './env';
 import type { TtrpcRouterOutput } from '@design-app/backend/src/lib/router/trpc-router';
 import mixpanel from 'mixpanel-browser';
 import { useEffect } from 'react';
 import { useMe } from './app-context';
-import { env } from './env';
 
 if (env.VITE_MIXPANEL_API_KEY) {
   mixpanel.init(env.VITE_MIXPANEL_API_KEY);

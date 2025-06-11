@@ -1,7 +1,7 @@
+import { env } from './env';
 import { RewriteFrames as RewriteFramesImport } from '@sentry/integrations';
 import * as Sentry from '@sentry/node';
 import * as path from 'path';
-import { env } from './env';
 import type { TLoggerMetaData } from './logger';
 
 const isSentryEnabled = env.BACKEND_SENTRY_DSN;

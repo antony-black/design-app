@@ -1,7 +1,7 @@
+import { env } from './env';
 import express, { type Express } from 'express';
 import { promises as fs } from 'fs';
 import path from 'path';
-import { env } from './env';
 import { logger } from './logger';
 
 const checkFileExists = async (filePath: string) => {

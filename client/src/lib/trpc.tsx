@@ -1,10 +1,10 @@
+import { env } from './env';
 import type { TtrpcRouter } from '@design-app/backend/src/lib/router/trpc-router';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { httpBatchLink, loggerLink, type TRPCLink } from '@trpc/client';
 import { createTRPCReact } from '@trpc/react-query';
 import { observable } from '@trpc/server/observable';
 import Cookies from 'js-cookie';
-import { env } from './env';
 import { sentryCaptureException } from './sentry';
 
 export const trpc = createTRPCReact<TtrpcRouter>();
