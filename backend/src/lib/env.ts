@@ -4,20 +4,26 @@ import fs from 'fs';
 import path from 'path';
 import { z } from 'zod';
 
-const findEnvFilePath = (dir: string): string | null => {
-  const maybeEnvFilePath = path.join(dir, '.env');
+const findEnvFilePath = (dir: string, pathPart: string): string | null => {
+  const maybeEnvFilePath = path.join(dir, pathPart);
   if (fs.existsSync(maybeEnvFilePath)) {
     return maybeEnvFilePath;
   }
   if (dir === '/') {
     return null;
   }
-  return findEnvFilePath(path.dirname(dir));
+  return findEnvFilePath(path.dirname(dir), pathPart);
 };
-const envFilePath = findEnvFilePath(__dirname);
-if (envFilePath) {
-  dotenv.config({ path: envFilePath, override: true });
-  dotenv.config({ path: `${envFilePath}.${process.env.NODE_ENV}`, override: true });
+const clientEnvFilePath = findEnvFilePath(__dirname, 'client/.env');
+if (clientEnvFilePath) {
+  dotenv.config({ path: clientEnvFilePath, override: true });
+  dotenv.config({ path: `${clientEnvFilePath}.${process.env.NODE_ENV}`, override: true });
+}
+
+const backendEnvFilePath = findEnvFilePath(__dirname, 'backend/.env');
+if (backendEnvFilePath) {
+  dotenv.config({ path: backendEnvFilePath, override: true });
+  dotenv.config({ path: `${backendEnvFilePath}.${process.env.NODE_ENV}`, override: true });
 }
 
 const zNonEmptyTrimmed = z.string().trim().min(1);
@@ -62,7 +68,7 @@ const zEnv = z.object({
   S3_SECRET_ACCESS_KEY: zNonEmptyTrimmedRequiredOnNotLocal,
   S3_BUCKET_NAME: zNonEmptyTrimmedRequiredOnNotLocal,
   S3_REGION: zNonEmptyTrimmedRequiredOnNotLocal,
-  S3_URL: zNonEmptyTrimmed,
+  // S3_URL: zNonEmptyTrimmed,
 });
 
 // eslint-disable-next-line node/no-process-env

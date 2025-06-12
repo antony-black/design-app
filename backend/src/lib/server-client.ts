@@ -34,9 +34,12 @@ export const applyServeClient = async (expressApp: Express) => {
   }
 
   const htmlSource = await fs.readFile(path.resolve(clientDistDir, 'index.html'), 'utf8');
+  // eslint-disable-next-line node/no-process-env
+  const publicEnv = parsePublicEnv(process.env);
+  const htmlSourceWithEnv = htmlSource.replace('{ replaceMeWithPublicEnv: true }', JSON.stringify(publicEnv, null, 2));
 
   expressApp.use(express.static(clientDistDir, { index: false }));
   expressApp.get('/*', (req, res) => {
-    res.send(htmlSource);
+    res.send(htmlSourceWithEnv);
   });
 };

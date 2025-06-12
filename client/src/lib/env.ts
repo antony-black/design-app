@@ -9,9 +9,11 @@ export const zEnv = z.object({
   VITE_CLIENT_URL: zEnvNonemptyTrimmed,
   VITE_WEBAPP_SENTRY_DSN: zEnvNonemptyTrimmedRequiredOnNotLocal,
   VITE_CLOUDINARY_CLOUD_NAME: zEnvNonemptyTrimmed,
-  VITE_S3_URL: zEnvNonemptyTrimmed,
+  // VITE_S3_URL: zEnvNonemptyTrimmed,
   VITE_MIXPANEL_API_KEY: zEnvNonemptyTrimmedRequiredOnNotLocal,
 });
 
+const envFromBackend = (window as any).webappEnvFromBackend;
+
 // eslint-disable-next-line node/no-process-env
-export const env = zEnv.parse(process.env);
+export const env = zEnv.parse(envFromBackend?.replaceMeWithPublicEnv ? process.env : envFromBackend);
