@@ -1,3 +1,4 @@
+// eslint-disable-next-line node/no-process-env
 import { zEnvHost, zEnvNonemptyTrimmed, zEnvNonemptyTrimmedRequiredOnNotLocal } from '@design-app/shared/src/zod';
 import { z } from 'zod';
 
