@@ -11,13 +11,19 @@
     "types": "pnpm -r --parallel types",
     "lint": "pnpm -r --parallel lint",
     "prettify": "pnpm -r --parallel prettify",
+    "dcc": "dotenv -e ./.env.docker -e ./backend/.env -e ./client/.env -- bash -c 'docker compose config'",
+    "dcb": "dotenv -e ./.env.docker -e ./backend/.env -e ./client/.env -- bash -c 'docker compose build'",
+    "dcu": "dotenv -e ./.env.docker -e ./backend/.env -e ./client/.env -- bash -c 'docker compose up'",
     "prepare": "husky install"
+  },
+  "dependencies": {
+    "dotenv-cli": "^8.0.0",
+    "cross-env": "^7.0.3"
   },
   "devDependencies": {
     "@types/jest": "^29.5.14",
     "concurrently": "^9.1.2",
     "copyfiles": "^2.4.1",
-    "cross-env": "^7.0.3",
     "eslint": "^8.57.1",
     "eslint-config-prettier": "^10.1.5",
     "eslint-config-react-app": "^7.0.1",

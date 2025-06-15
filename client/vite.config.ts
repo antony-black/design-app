@@ -5,6 +5,7 @@ import { defineConfig, loadEnv } from 'vite';
 import svgr from 'vite-plugin-svgr';
 import packageJson from './package.json' with { type: 'json' };
 import { parsePublicEnv } from './src/lib/parse-public-env';
+import autoprefixer from 'autoprefixer';
 
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '');
@@ -32,6 +33,11 @@ export default defineConfig(({ mode }) => {
             release: { name: env.SOURCE_VERSION },
           }),
     ],
+    css: {
+      postcss: {
+        plugins: [autoprefixer({})],
+      },
+    },
     build: {
       sourcemap: true,
     },

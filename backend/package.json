@@ -16,6 +16,7 @@
     "sentry": "pnpm sentry-release && pnpm sentry-sourcemaps",
     "pmd": "prisma migrate dev",
     "pmt": "dotenv -e ./.env.test prisma migrate deploy",
+    "pmp": "dotenv -e ./.env.production prisma migrate deploy",
     "pgc": "npx prisma generate",
     "pf": "npx prisma format",
     "ps": "npx prisma studio",
@@ -41,8 +42,6 @@
     "@types/passport-jwt": "^4.0.1",
     "@types/randomstring": "^1.3.0",
     "@types/triple-beam": "^1.3.5",
-    "dotenv-cli": "^8.0.0",
-    "prisma": "^6.7.0",
     "shx": "^0.4.0"
   },
   "prisma": {
@@ -74,6 +73,7 @@
     "passport": "^0.7.0",
     "passport-jwt": "^4.0.1",
     "picocolors": "^1.1.1",
+    "prisma": "^6.7.0",
     "randomstring": "^1.3.1",
     "react-router-dom": "^7.6.0",
     "serialize-error": "8.1.0",
